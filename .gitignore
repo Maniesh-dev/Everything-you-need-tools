@@ -4,9 +4,11 @@
 node_modules
 .pnp
 .pnp.js
+.pnp.cjs
 
 # Local env files
 .env
+.env*.local
 .env.local
 .env.development.local
 .env.test.local
@@ -18,6 +20,9 @@ coverage
 # Turbo
 .turbo
 
+#agent
+.agent/
+
 # Vercel
 .vercel
 
@@ -27,10 +32,56 @@ out/
 build
 dist
 
-
 # Debug
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
 # Misc
 .DS_Store
 *.pem
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.swo
+
+# OS generated files
+._*
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Package manager lock files (keep only one)
+# Uncomment the ones you don't use:
+# yarn.lock
+# pnpm-lock.yaml
+
+# Storybook
+storybook-static
+
+# PWA
+sw.*
+workbox-*
+
+# Sentry
+.sentryclirc
+
+# eslint
+.eslintcache
+
+# Gemini / AI agent files
+.gemini/
