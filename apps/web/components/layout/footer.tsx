@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Separator } from "@workspace/ui/components/separator";
 import { categories } from "@/lib/categories";
+import { Heart } from "@phosphor-icons/react";
 
 export function Footer() {
   const columnSize = Math.ceil(categories.length / 4);
@@ -27,6 +28,10 @@ export function Footer() {
               Your one-stop destination for 300+ free online tools. No login required.
               Fast, private, and built for everyone.
             </p>
+
+            <Link href="/#donate" className="mt-6 py-2 px-4 border rounded-full flex items-center justify-center border-rose-500/30 bg-rose-500/5 text-rose-500 hover:bg-rose-500/10 hover:text-rose-600 dark:hover:text-rose-400 font-medium">
+              <p>♥️<span className="ml-2">Donate</span></p>
+            </Link>
           </div>
 
           {/* Quick links */}

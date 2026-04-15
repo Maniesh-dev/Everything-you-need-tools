@@ -73,7 +73,7 @@ export const tools: Tool[] = [
   { slug: "image-to-text", name: "Image to Text (OCR)", description: "Extract text from images using OCR", category: "image", tags: ["ocr", "image", "text", "extract"], status: "coming-soon" },
 
   // ─── PDF Tools ──────────────────────────────────────────
-  { slug: "pdf-merger", name: "PDF Merger", description: "Merge multiple PDF files into one", category: "pdf", tags: ["pdf", "merge", "combine"], status: "coming-soon" },
+  { slug: "pdf-merger", name: "PDF Merger", description: "Merge multiple PDF files into one", category: "pdf", tags: ["pdf", "merge", "combine"], status: "live" },
   { slug: "pdf-splitter", name: "PDF Splitter", description: "Split a PDF into separate files", category: "pdf", tags: ["pdf", "split", "separate"], status: "coming-soon" },
   { slug: "pdf-compressor", name: "PDF Compressor", description: "Compress PDF files to reduce size", category: "pdf", tags: ["pdf", "compress", "size"], status: "coming-soon" },
   { slug: "pdf-to-word", name: "PDF to Word / Excel", description: "Convert PDF to Word or Excel documents", category: "pdf", tags: ["pdf", "word", "excel", "convert"], status: "coming-soon" },

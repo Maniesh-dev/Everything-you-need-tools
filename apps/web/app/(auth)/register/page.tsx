@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuthContext } from '@/context/AuthContext';
 import { GoogleLogin } from '@react-oauth/google';
 import {
@@ -15,6 +15,12 @@ import {
   CheckCircle,
 } from '@phosphor-icons/react';
 
+function getSafeRedirect(redirect: string | null): string {
+  if (!redirect) return '/';
+  if (!redirect.startsWith('/') || redirect.startsWith('//')) return '/';
+  return redirect;
+}
+
 export default function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -25,6 +31,12 @@ export default function RegisterPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { register, googleLogin } = useAuthContext();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = getSafeRedirect(searchParams.get('redirect'));
+  const loginHref =
+    redirectTo === '/'
+      ? '/login'
+      : `/login?redirect=${encodeURIComponent(redirectTo)}`;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -76,7 +88,7 @@ export default function RegisterPage() {
           </p>
           <div className="mt-6">
             <Link
-              href="/login"
+              href={loginHref}
               className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
             >
               Back to login
@@ -129,7 +141,7 @@ export default function RegisterPage() {
                 setIsSubmitting(true);
                 const result = await googleLogin(credentialResponse.credential);
                 if (result.success) {
-                  router.push('/');
+                  router.push(redirectTo);
                 } else {
                   setError(result.message);
                 }
@@ -263,7 +275,7 @@ export default function RegisterPage() {
         <div className="mt-6 text-center text-sm text-muted-foreground">
           Already have an account?{' '}
           <Link
-            href="/login"
+            href={loginHref}
             className="font-medium text-primary hover:underline"
           >
             Sign in

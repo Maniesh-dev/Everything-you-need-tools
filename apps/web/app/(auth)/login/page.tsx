@@ -2,10 +2,16 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuthContext } from '@/context/AuthContext';
 import { GoogleLogin } from '@react-oauth/google';
 import { Eye, EyeSlash, EnvelopeSimple, Lock, SpinnerGap } from '@phosphor-icons/react';
+
+function getSafeRedirect(redirect: string | null): string {
+  if (!redirect) return '/';
+  if (!redirect.startsWith('/') || redirect.startsWith('//')) return '/';
+  return redirect;
+}
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -15,6 +21,12 @@ export default function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { login, googleLogin } = useAuthContext();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = getSafeRedirect(searchParams.get('redirect'));
+  const registerHref =
+    redirectTo === '/'
+      ? '/register'
+      : `/register?redirect=${encodeURIComponent(redirectTo)}`;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -24,7 +36,7 @@ export default function LoginPage() {
     const result = await login(email, password);
 
     if (result.success) {
-      router.push('/');
+      router.push(redirectTo);
     } else {
       setError(result.message);
     }
@@ -73,7 +85,7 @@ export default function LoginPage() {
                 setIsSubmitting(true);
                 const result = await googleLogin(credentialResponse.credential);
                 if (result.success) {
-                  router.push('/');
+                  router.push(redirectTo);
                 } else {
                   setError(result.message);
                 }
@@ -178,7 +190,7 @@ export default function LoginPage() {
         <div className="mt-6 text-center text-sm text-muted-foreground">
           Don&apos;t have an account?{' '}
           <Link
-            href="/register"
+            href={registerHref}
             className="font-medium text-primary hover:underline"
           >
             Create one
