@@ -11,8 +11,7 @@ import { ScrollArea, ScrollBar } from "@workspace/ui/components/scroll-area";
 import { ArrowRight } from "@phosphor-icons/react";
 
 export function HeroCategoryFilter() {
-  const [activeCategory, setActiveCategory] = React.useState<CategorySlug>("clock-time");
-  
+  const [activeCategory, setActiveCategory] = React.useState<CategorySlug>("pdf");
   const currentTools = React.useMemo(() => {
     return getToolsByCategory(activeCategory).slice(0, 6); // Limit to 6 for the hero preview
   }, [activeCategory]);
@@ -24,7 +23,7 @@ export function HeroCategoryFilter() {
           Filter Tools by Category
         </h3>
         <Link href={`/${activeCategory}`} className="text-xs text-primary hover:underline underline-offset-4">
-          View all in category → 
+          View all in category →
         </Link>
       </div>
 
@@ -37,11 +36,10 @@ export function HeroCategoryFilter() {
               <button
                 key={cat.slug}
                 onClick={() => setActiveCategory(cat.slug)}
-                className={`group relative rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                  isActive
-                    ? "text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                }`}
+                className={`group relative rounded-full px-4 py-2 text-sm font-medium transition-colors ${isActive
+                  ? "text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  }`}
               >
                 {isActive && (
                   <motion.div

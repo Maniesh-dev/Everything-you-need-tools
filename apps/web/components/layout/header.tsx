@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MagnifyingGlass, List, Moon, Sun, X } from "@phosphor-icons/react";
+import { MagnifyingGlass, List, Moon, Sun, X, Heart } from "@phosphor-icons/react";
 import { useTheme } from "next-themes";
 import { Button } from "@workspace/ui/components/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@workspace/ui/components/sheet";
@@ -26,10 +26,10 @@ export function Header() {
             href="/"
             className="flex items-center gap-2 font-heading text-lg font-bold tracking-tight"
           >
-            <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-black">
-              A
+            <span className="flex px-4 py-2 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-black">
+              Kraaft
             </span>
-            <span className="hidden sm:inline">AllInOneTools</span>
+            <span className="hidden sm:inline font-bold tracking-lg">All in One Tools</span>
           </Link>
 
           {/* Search bar (desktop) */}
@@ -53,6 +53,17 @@ export function Header() {
               onClick={() => setSearchOpen(true)}
             >
               <MagnifyingGlass />
+            </Button>
+
+            <Button
+              asChild
+              variant="outline"
+              className="hidden sm:flex items-center gap-1.5 border-rose-500/30 bg-rose-500/5 text-rose-500 hover:bg-rose-500/10 hover:text-rose-600 dark:hover:text-rose-400 font-medium"
+            >
+              <Link href="/#donate">
+                <Heart weight="fill" />
+                <span>Donate</span>
+              </Link>
             </Button>
 
             <ThemeToggle />

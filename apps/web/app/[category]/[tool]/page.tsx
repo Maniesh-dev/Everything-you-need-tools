@@ -39,7 +39,7 @@ export async function generateMetadata({
     title: `${toolData.name} — Free Online Tool`,
     description: toolData.description,
     openGraph: {
-      title: `${toolData.name} | AllInOneTools`,
+      title: `${toolData.name} | kraaft`,
       description: toolData.description,
     },
   };

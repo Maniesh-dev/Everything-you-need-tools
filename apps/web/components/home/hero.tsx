@@ -9,18 +9,26 @@ import { motion, Variants } from "framer-motion";
 import { HeroMarquee } from "./marquee-tools";
 import { HeroCategoryFilter } from "./hero-category-filter";
 
-const leftFloatingTools = [
-  "Most Used : World Clock",
-  "Most Used : URL Shortener",
-  "Trending : AI Text Detector",
-  "Trending : AI Image Detector",
-];
+interface FloatingTool {
+  label: string;
+  name: string;
+  type: "trending" | "most-used";
+  position: { top: string; left: string };
+  rotate: number;
+  floatDirection: "up" | "down";
+  floatDuration: number;
+  delay: number;
+}
 
-const rightFloatingTools = [
-  "Most Used : Image to PDF",
-  "Most Used : JSON Formatter",
-  "Most Used : Password Generator",
-  "Trending : AI Writing Humanizer",
+const floatingTools: FloatingTool[] = [
+  { label: "Trending", name: "AI Text Detector", type: "trending", position: { top: "2rem", left: "-38rem" }, rotate: -4, floatDirection: "up", floatDuration: 4.2, delay: 0.2 },
+  { label: "Most Used", name: "World Clock", type: "most-used", position: { top: "6rem", left: "-33rem" }, rotate: 2, floatDirection: "down", floatDuration: 5.0, delay: 0.35 },
+  { label: "Most Used", name: "URL Shortener", type: "most-used", position: { top: "12rem", left: "-37rem" }, rotate: -2, floatDirection: "up", floatDuration: 4.6, delay: 0.1 },
+  { label: "Trending", name: "AI Image Detector", type: "trending", position: { top: "17rem", left: "-35rem" }, rotate: 3, floatDirection: "down", floatDuration: 5.3, delay: 0.45 },
+  { label: "Most Used", name: "Image to PDF", type: "most-used", position: { top: "2rem", left: "28rem" }, rotate: 3, floatDirection: "down", floatDuration: 4.8, delay: 0.3 },
+  { label: "Trending", name: "AI Writing Humanizer", type: "trending", position: { top: "8rem", left: "23rem" }, rotate: -3, floatDirection: "up", floatDuration: 5.1, delay: 0.15 },
+  { label: "Most Used", name: "JSON Formatter", type: "most-used", position: { top: "12rem", left: "27rem" }, rotate: 2, floatDirection: "down", floatDuration: 4.4, delay: 0.4 },
+  { label: "Most Used", name: "Password Generator", type: "most-used", position: { top: "19rem", left: "22rem" }, rotate: -2, floatDirection: "up", floatDuration: 5.5, delay: 0.25 },
 ];
 
 export function Hero() {
@@ -44,7 +52,7 @@ export function Hero() {
 
   return (
     <>
-      <section className="relative overflow-hidden pt-20 sm:pt-28 lg:pt-32">
+      <section className="relative overflow-hidden pt-10">
         {/* Background gradient orbs and floating elements */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <motion.div
@@ -62,41 +70,40 @@ export function Hero() {
         </div>
 
         <div className="pointer-events-none absolute inset-0 z-10 hidden xl:block" aria-hidden="true">
-          <div className="absolute left-1/2 top-24 flex -translate-x-[39rem] flex-col gap-4">
-            {leftFloatingTools.map((tool, index) => (
-              <motion.span
-                key={tool}
-                initial={{ opacity: 0, x: -16 }}
-                animate={{ opacity: 1, x: 0, y: [0, -10, 0] }}
-                transition={{
-                  opacity: { duration: 0.6, delay: 0.25 + index * 0.08 },
-                  x: { duration: 0.6, delay: 0.25 + index * 0.08 },
-                  y: { duration: 4.5 + index * 0.3, repeat: Infinity, ease: "easeInOut" },
-                }}
-                className="inline-flex w-fit -rotate-3 rounded-full border border-border/60 bg-background/85 px-3 py-1.5 text-xs font-medium text-muted-foreground shadow-sm backdrop-blur-sm"
+          {floatingTools.map((tool) => (
+            <motion.span
+              key={tool.name}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                y: tool.floatDirection === "up" ? [0, -12, 0] : [0, 12, 0],
+              }}
+              transition={{
+                opacity: { duration: 0.5, delay: tool.delay },
+                scale: { duration: 0.5, delay: tool.delay },
+                y: { duration: tool.floatDuration, repeat: Infinity, ease: "easeInOut" },
+              }}
+              style={{
+                position: "absolute",
+                top: tool.position.top,
+                left: "50%",
+                marginLeft: tool.position.left,
+                rotate: `${tool.rotate}deg`,
+              }}
+              className="inline-flex w-fit items-center gap-1.5 rounded-full border border-border/60 bg-background/85 px-3 py-1.5 text-xs font-medium text-muted-foreground shadow-sm backdrop-blur-sm"
+            >
+              <span
+                className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold leading-none ${tool.type === "trending"
+                  ? "bg-gradient-to-r from-orange-500 to-amber-400 text-white"
+                  : "bg-gradient-to-r from-blue-500 to-cyan-400 text-white"
+                  }`}
               >
-                {tool}
-              </motion.span>
-            ))}
-          </div>
-
-          <div className="absolute left-1/2 top-24 flex translate-x-[28rem] flex-col gap-4">
-            {rightFloatingTools.map((tool, index) => (
-              <motion.span
-                key={tool}
-                initial={{ opacity: 0, x: 16 }}
-                animate={{ opacity: 1, x: 0, y: [0, 10, 0] }}
-                transition={{
-                  opacity: { duration: 0.6, delay: 0.35 + index * 0.08 },
-                  x: { duration: 0.6, delay: 0.35 + index * 0.08 },
-                  y: { duration: 4.8 + index * 0.3, repeat: Infinity, ease: "easeInOut" },
-                }}
-                className="inline-flex w-fit rotate-3 rounded-full border border-border/60 bg-background/85 px-3 py-1.5 text-xs font-medium text-muted-foreground shadow-sm backdrop-blur-sm"
-              >
-                {tool}
-              </motion.span>
-            ))}
-          </div>
+                {tool.label}
+              </span>
+              {tool.name}
+            </motion.span>
+          ))}
         </div>
 
 
@@ -106,10 +113,15 @@ export function Hero() {
           animate="show"
           className="relative z-20 mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8"
         >
-          {/* Badge */}
-          <motion.div variants={itemVariants} className="mb-6 flex justify-center">
-            <Badge variant="secondary" className="px-6 py-3 text-xs font-medium">
-              ✨ {totalTools}+ Free Tools — No Signup Required
+          {/* Social Proof & Badge */}
+          <motion.div variants={itemVariants} className="mb-8 flex flex-col items-center gap-4">
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-yellow-500/20 bg-yellow-500/5 px-4 py-1.5 text-sm backdrop-blur-sm transition-colors hover:bg-yellow-500/10 cursor-default">
+              <span className="text-yellow-500 text-[10px] tracking-widest drop-shadow-sm">★★★★★</span>
+              <span className="text-xs font-medium text-muted-foreground">Used by 10,000+ creators, devs &amp; marketers etc..</span>
+            </div>
+
+            <Badge variant="secondary" className="px-6 py-3 text-xs font-medium shadow-sm">
+              ✨ 300+ Free Tools — No Signup Required
             </Badge>
           </motion.div>
 
@@ -145,7 +157,7 @@ export function Hero() {
                 data-icon="inline-start"
               />
               <span className="flex-1 text-left text-muted-foreground text-sm">
-                Search {totalTools}+ tools...
+                Search 300+ tools...
               </span>
               <kbd className="hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-mono font-medium text-muted-foreground">
                 ⌘K
