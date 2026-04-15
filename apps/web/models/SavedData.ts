@@ -14,7 +14,8 @@ const SavedDataSchema = new mongoose.Schema(
     },
     userId: {
       type: String,
-      description: 'Optional User ID. Useful for when authentication is added in the future.',
+      required: [true, 'Please provide the authenticated user id.'],
+      description: 'User ID of the authenticated account that owns this saved file/data.',
     },
     data: {
       type: mongoose.Schema.Types.Mixed,

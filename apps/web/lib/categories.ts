@@ -1,3 +1,5 @@
+import { tools } from "./tools-registry";
+
 export type CategorySlug =
   | "clock-time"
   | "weather"
@@ -46,7 +48,7 @@ export interface Category {
   toolCount: number;
 }
 
-export const categories: Category[] = [
+const categorySeed: Category[] = [
   {
     slug: "pdf",
     name: "PDF Tools",
@@ -351,6 +353,19 @@ export const categories: Category[] = [
     toolCount: 8,
   },
 ];
+
+const toolCountByCategory = tools.reduce<Partial<Record<CategorySlug, number>>>(
+  (acc, tool) => {
+    acc[tool.category] = (acc[tool.category] ?? 0) + 1;
+    return acc;
+  },
+  {}
+);
+
+export const categories: Category[] = categorySeed.map((category) => ({
+  ...category,
+  toolCount: toolCountByCategory[category.slug] ?? category.toolCount,
+}));
 
 export function getCategoryBySlug(slug: string): Category | undefined {
   return categories.find((c) => c.slug === slug);

@@ -101,11 +101,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                     {tool.name}
                   </CardTitle>
                   {tool.status === "coming-soon" ? (
-                    <Badge variant="outline" className="text-[10px] shrink-0">
+                    <Badge variant="outline" className="text-[10px] shrink-0 ml-2">
                       Coming Soon
                     </Badge>
                   ) : (
-                    <Badge variant="default" className="text-[10px] shrink-0">
+                    <Badge variant="default" className="text-[10px] shrink-0 bg-green-500 text-white ml-2">
                       Live
                     </Badge>
                   )}

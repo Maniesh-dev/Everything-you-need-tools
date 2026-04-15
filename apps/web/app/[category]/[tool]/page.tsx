@@ -11,9 +11,10 @@ import {
 import { Badge } from "@workspace/ui/components/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@workspace/ui/components/card";
 import { Separator } from "@workspace/ui/components/separator";
-import { categories, getCategoryBySlug } from "@/lib/categories";
+import { getCategoryBySlug } from "@/lib/categories";
 import { getToolBySlug, getToolsByCategory, tools } from "@/lib/tools-registry";
 import Link from "next/link";
+import { PdfMergerTool } from "@/components/tools/pdf/pdf-merger-tool";
 
 interface ToolPageProps {
   params: Promise<{ category: string; tool: string }>;
@@ -106,25 +107,29 @@ export default async function ToolPage({ params }: ToolPageProps) {
           <Separator className="mb-8" />
 
           {/* Tool content area */}
-          <Card className="min-h-[400px]">
-            <CardContent className="flex flex-col items-center justify-center gap-4 py-20 text-center">
-              <span className="text-6xl animate-float">{cat.emoji}</span>
-              <h2 className="font-heading text-xl font-semibold text-muted-foreground">
-                Coming Soon
-              </h2>
-              <p className="max-w-sm text-sm text-muted-foreground">
-                We&apos;re building this tool. Check back soon or explore other
-                tools in the{" "}
-                <Link
-                  href={`/${cat.slug}`}
-                  className="text-primary underline underline-offset-4"
-                >
-                  {cat.name}
-                </Link>{" "}
-                category.
-              </p>
-            </CardContent>
-          </Card>
+          {toolData.category === "pdf" && toolData.slug === "pdf-merger" ? (
+            <PdfMergerTool />
+          ) : (
+            <Card className="min-h-[400px]">
+              <CardContent className="flex flex-col items-center justify-center gap-4 py-20 text-center">
+                <span className="text-6xl animate-float">{cat.emoji}</span>
+                <h2 className="font-heading text-xl font-semibold text-muted-foreground">
+                  Coming Soon
+                </h2>
+                <p className="max-w-sm text-sm text-muted-foreground">
+                  We&apos;re building this tool. Check back soon or explore other
+                  tools in the{" "}
+                  <Link
+                    href={`/${cat.slug}`}
+                    className="text-primary underline underline-offset-4"
+                  >
+                    {cat.name}
+                  </Link>{" "}
+                  category.
+                </p>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         {/* Sidebar — related tools */}
