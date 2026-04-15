@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MagnifyingGlass, List, Moon, Sun, X, Heart } from "@phosphor-icons/react";
+import { MagnifyingGlass, List, Moon, Sun, X, Heart, SignIn, UserCircle, SignOut } from "@phosphor-icons/react";
 import { useTheme } from "next-themes";
 import { Button } from "@workspace/ui/components/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@workspace/ui/components/sheet";
@@ -11,11 +11,14 @@ import { Separator } from "@workspace/ui/components/separator";
 import { cn } from "@workspace/ui/lib/utils";
 import { categories } from "@/lib/categories";
 import { CommandSearch } from "@/components/shared/command-search";
+import { useAuthContext } from "@/context/AuthContext";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [searchOpen, setSearchOpen] = React.useState(false);
+  const [userMenuOpen, setUserMenuOpen] = React.useState(false);
   const pathname = usePathname();
+  const { user, isLoading, logout } = useAuthContext();
 
   return (
     <>
@@ -68,6 +71,76 @@ export function Header() {
 
             <ThemeToggle />
 
+            {/* Auth buttons */}
+            {!isLoading && (
+              <>
+                {user ? (
+                  /* ── Logged in: User menu ──────────────────────────────── */
+                  <div className="relative">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setUserMenuOpen(!userMenuOpen)}
+                      className="relative"
+                    >
+                      <UserCircle size={22} weight="fill" />
+                    </Button>
+
+                    {userMenuOpen && (
+                      <>
+                        {/* Backdrop to close menu */}
+                        <div
+                          className="fixed inset-0 z-40"
+                          onClick={() => setUserMenuOpen(false)}
+                        />
+                        {/* Dropdown */}
+                        <div className="absolute right-0 top-full mt-2 z-50 w-56 rounded-xl border border-border bg-card/95 backdrop-blur-xl p-1.5 shadow-xl shadow-black/10">
+                          <div className="px-3 py-2 border-b border-border mb-1">
+                            <p className="text-sm font-medium text-foreground truncate">
+                              {user.name}
+                            </p>
+                            <p className="text-xs text-muted-foreground truncate">
+                              {user.email}
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => {
+                              setUserMenuOpen(false);
+                              logout();
+                            }}
+                            className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-red-500 hover:bg-red-500/10 transition-colors"
+                          >
+                            <SignOut size={16} />
+                            Sign out
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                ) : (
+                  /* ── Not logged in: Auth links ─────────────────────────── */
+                  <>
+                    <Button
+                      asChild
+                      variant="ghost"
+                      className="hidden sm:flex items-center gap-1.5 text-sm"
+                    >
+                      <Link href="/login">
+                        <SignIn size={16} />
+                        <span>Login</span>
+                      </Link>
+                    </Button>
+                    <Button
+                      asChild
+                      className="hidden sm:flex text-sm"
+                    >
+                      <Link href="/register">Sign up</Link>
+                    </Button>
+                  </>
+                )}
+              </>
+            )}
+
             {/* Mobile menu */}
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
@@ -78,6 +151,48 @@ export function Header() {
               <SheetContent side="right" className="w-80 overflow-y-auto">
                 <SheetTitle>Menu</SheetTitle>
                 <nav className="flex flex-col gap-1 pt-4">
+                  {/* Auth section in mobile menu */}
+                  {!isLoading && !user && (
+                    <>
+                      <Link
+                        href="/login"
+                        onClick={() => setMobileOpen(false)}
+                        className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors flex items-center gap-2"
+                      >
+                        <SignIn size={16} />
+                        Sign in
+                      </Link>
+                      <Link
+                        href="/register"
+                        onClick={() => setMobileOpen(false)}
+                        className="rounded-md px-3 py-2 text-sm font-medium bg-primary text-primary-foreground hover:opacity-90 transition-colors text-center"
+                      >
+                        Create account
+                      </Link>
+                      <Separator className="my-2" />
+                    </>
+                  )}
+
+                  {!isLoading && user && (
+                    <>
+                      <div className="px-3 py-2">
+                        <p className="text-sm font-medium text-foreground">{user.name}</p>
+                        <p className="text-xs text-muted-foreground">{user.email}</p>
+                      </div>
+                      <button
+                        onClick={() => {
+                          setMobileOpen(false);
+                          logout();
+                        }}
+                        className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-red-500 hover:bg-red-500/10 transition-colors"
+                      >
+                        <SignOut size={16} />
+                        Sign out
+                      </button>
+                      <Separator className="my-2" />
+                    </>
+                  )}
+
                   <Link
                     href="/"
                     onClick={() => setMobileOpen(false)}
@@ -148,3 +263,4 @@ function ThemeToggle() {
     </Button>
   );
 }
+

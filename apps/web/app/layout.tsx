@@ -1,3 +1,4 @@
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Geist_Mono, DM_Sans, Inter } from "next/font/google";
 import type { Metadata } from "next";
 
@@ -93,11 +94,13 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-svh flex flex-col">
-        <Providers>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </Providers>
+        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
+          <Providers>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </Providers>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );

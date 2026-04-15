@@ -4,6 +4,7 @@ import * as React from "react";
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
 import { TooltipProvider } from "@workspace/ui/components/tooltip";
 import { Toaster } from "@workspace/ui/components/sonner";
+import { AuthProvider } from "@/context/AuthContext";
 
 function ThemeHotkey() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -43,11 +44,14 @@ export function Providers({ children }: { children: React.ReactNode }) {
       enableSystem
       disableTransitionOnChange
     >
-      <TooltipProvider>
-        <ThemeHotkey />
-        {children}
-        <Toaster richColors position="top-right" />
-      </TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <ThemeHotkey />
+          {children}
+          <Toaster richColors position="top-right" />
+        </TooltipProvider>
+      </AuthProvider>
     </NextThemesProvider>
   );
 }
+
