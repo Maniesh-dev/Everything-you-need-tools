@@ -61,7 +61,7 @@ export function Header() {
             <Button
               asChild
               variant="outline"
-              className="hidden sm:flex items-center gap-1.5 border-rose-500/30 bg-rose-500/5 text-rose-500 hover:bg-rose-500/10 hover:text-rose-600 dark:hover:text-rose-400 font-medium"
+              className="flex items-center gap-1.5 border-rose-500/30 bg-rose-500/5 text-rose-500 hover:bg-rose-500/10 hover:text-rose-600 dark:hover:text-rose-400 font-medium"
             >
               <Link href="/#donate">
                 <Heart weight="fill" />
@@ -102,6 +102,10 @@ export function Header() {
                             <p className="text-xs text-muted-foreground truncate">
                               {user.email}
                             </p>
+                          </div>
+                          <div className="px-3 py-2 border-b border-border mb-1 space-y-2">
+                            <p className="text-sm font-medium text-foreground cursor-pointer">Your Saved Data</p>
+                            <p className="text-sm font-medium text-foreground cursor-pointer">Feedback for us</p>
                           </div>
                           <button
                             onClick={() => {
@@ -149,7 +153,7 @@ export function Header() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-80 overflow-y-auto">
-                <SheetTitle>Menu</SheetTitle>
+                <SheetTitle className="p-4 ">Menu</SheetTitle>
                 <nav className="flex flex-col gap-1 pt-4">
                   {/* Auth section in mobile menu */}
                   {!isLoading && !user && (
