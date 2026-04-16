@@ -19,10 +19,10 @@ export function Footer() {
         <div className="flex flex-col gap-8 md:flex-row md:justify-between">
           <div className="max-w-sm">
             <Link href="/" className="flex items-center gap-2 font-heading text-lg font-bold">
-              <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-black">
-                A
+              <span className="flex px-4 py-2 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-black">
+                kraaft
               </span>
-              kraaft
+              All In One Tools
             </Link>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
               Your one-stop destination for 300+ free online tools. No login required.

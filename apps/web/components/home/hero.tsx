@@ -4,7 +4,7 @@ import * as React from "react";
 import { MagnifyingGlass } from "@phosphor-icons/react";
 import { Badge } from "@workspace/ui/components/badge";
 import { getTotalToolCount } from "@/lib/categories";
-import { CommandSearch } from "@/components/shared/command-search";
+import { InlineSearch } from "@/components/shared/inline-search";
 import { motion, Variants } from "framer-motion";
 import { HeroMarquee } from "./marquee-tools";
 import { HeroCategoryFilter } from "./hero-category-filter";
@@ -32,7 +32,6 @@ const floatingTools: FloatingTool[] = [
 ];
 
 export function Hero() {
-  const [searchOpen, setSearchOpen] = React.useState(false);
   const totalTools = getTotalToolCount();
 
   const containerVariants: Variants = {
@@ -147,22 +146,8 @@ export function Hero() {
           </motion.p>
 
           {/* Search bar */}
-          <motion.div variants={itemVariants} className="mx-auto mt-10 max-w-xl">
-            <button
-              onClick={() => setSearchOpen(true)}
-              className="group flex w-full items-center gap-3 rounded-xl border border-border bg-background/80 px-5 py-4 shadow-lg shadow-primary/5 transition-all hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 cursor-pointer"
-            >
-              <MagnifyingGlass
-                className="text-muted-foreground transition-colors group-hover:text-primary"
-                data-icon="inline-start"
-              />
-              <span className="flex-1 text-left text-muted-foreground text-sm">
-                Search 300+ tools...
-              </span>
-              <kbd className="hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-mono font-medium text-muted-foreground">
-                ⌘K
-              </kbd>
-            </button>
+          <motion.div variants={itemVariants} className="mx-auto mt-10 max-w-xl relative">
+            <InlineSearch className="py-4" placeholder="Search 300+ tools..." dropDirection="up" />
           </motion.div>
 
           {/* Quick stats */}
@@ -186,7 +171,7 @@ export function Hero() {
         </motion.div>
 
         {/* Category text filter below the main headline */}
-        <div className="relative z-20">
+        <div className="relative z-50">
           <HeroCategoryFilter />
         </div>
 
@@ -200,8 +185,6 @@ export function Hero() {
           <HeroMarquee />
         </motion.div>
       </section>
-
-      <CommandSearch open={searchOpen} onOpenChange={setSearchOpen} />
     </>
   );
 }

@@ -56,7 +56,7 @@ export function CategoryGrid() {
                       {cat.description}
                     </CardDescription>
                   </div>
-                  <div className="flex items-center justify-between pt-1">
+                  <div className="flex items-center justify-between pt-1 gap-2">
                     <span className="text-xs text-muted-foreground">
                       {cat.toolCount} tools
                     </span>

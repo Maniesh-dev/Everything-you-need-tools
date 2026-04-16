@@ -5,6 +5,7 @@ import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
 import { TooltipProvider } from "@workspace/ui/components/tooltip";
 import { Toaster } from "@workspace/ui/components/sonner";
 import { AuthProvider } from "@/context/AuthContext";
+import { PinnedToolsProvider } from "@/context/PinnedToolsContext";
 
 function ThemeHotkey() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -45,11 +46,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
       disableTransitionOnChange
     >
       <AuthProvider>
-        <TooltipProvider>
-          <ThemeHotkey />
-          {children}
-          <Toaster richColors position="top-right" />
-        </TooltipProvider>
+        <PinnedToolsProvider>
+          <TooltipProvider>
+            <ThemeHotkey />
+            {children}
+            <Toaster richColors position="top-right" />
+          </TooltipProvider>
+        </PinnedToolsProvider>
       </AuthProvider>
     </NextThemesProvider>
   );

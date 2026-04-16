@@ -96,7 +96,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           >
             <Card className="h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 group-hover:border-primary/20">
               <CardHeader className="flex flex-col gap-2">
-                <div className="flex items-center justify-between">
+                <div className="w-full flex items-center justify-between">
                   <CardTitle className="text-base font-semibold group-hover:text-primary transition-colors">
                     {tool.name}
                   </CardTitle>
@@ -105,9 +105,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                       Coming Soon
                     </Badge>
                   ) : (
-                    <Badge variant="default" className="text-[10px] shrink-0 bg-green-500 text-white ml-2">
-                      Live
-                    </Badge>
+                    ""
                   )}
                 </div>
                 <CardDescription className="text-xs">

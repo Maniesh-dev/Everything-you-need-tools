@@ -3,26 +3,39 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MagnifyingGlass, List, Moon, Sun, X, Heart, SignIn, UserCircle, SignOut } from "@phosphor-icons/react";
+import { MagnifyingGlass, List, Moon, Sun, X, Heart, SignIn, UserCircle, SignOut, PushPin } from "@phosphor-icons/react";
 import { useTheme } from "next-themes";
 import { Button } from "@workspace/ui/components/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@workspace/ui/components/sheet";
 import { Separator } from "@workspace/ui/components/separator";
 import { cn } from "@workspace/ui/lib/utils";
 import { categories } from "@/lib/categories";
-import { CommandSearch } from "@/components/shared/command-search";
+import { InlineSearch } from "@/components/shared/inline-search";
 import { useAuthContext } from "@/context/AuthContext";
+import { usePinnedTools } from "@/context/PinnedToolsContext";
+import { tools } from "@/lib/tools-registry";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [searchOpen, setSearchOpen] = React.useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = React.useState(false);
   const [userMenuOpen, setUserMenuOpen] = React.useState(false);
   const pathname = usePathname();
   const { user, isLoading, logout } = useAuthContext();
+  const { pinnedTools } = usePinnedTools();
 
   return (
     <>
-      <header className="sticky top-0 z-50 glass">
+      <header className="sticky top-0 z-100 glass relative w-full border-b border-border/40">
+        {/* Absolute Expanding Mobile Search */}
+        {mobileSearchOpen && (
+          <div className="absolute inset-0 z-[60] flex items-center bg-background px-4 md:hidden shadow-sm animate-in fade-in slide-in-from-top-2">
+            <InlineSearch autoFocus className="flex-1 bg-background glass" placeholder="Search tools..." />
+            <Button variant="ghost" size="icon" onClick={() => setMobileSearchOpen(false)} className="ml-2 shrink-0">
+              <X size={20} />
+            </Button>
+          </div>
+        )}
+
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <Link
@@ -35,17 +48,9 @@ export function Header() {
             <span className="hidden sm:inline font-bold tracking-lg">All in One Tools</span>
           </Link>
 
-          {/* Search bar (desktop) */}
-          <button
-            onClick={() => setSearchOpen(true)}
-            className="hidden md:flex items-center gap-2 rounded-lg border border-border bg-muted/50 px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted cursor-pointer max-w-md flex-1"
-          >
-            <MagnifyingGlass data-icon="inline-start" />
-            <span className="flex-1 text-left">Search tools...</span>
-            <kbd className="hidden lg:inline-flex items-center gap-0.5 rounded border border-border bg-background px-1.5 py-0.5 text-[10px] font-mono font-medium text-muted-foreground">
-              ⌘K
-            </kbd>
-          </button>
+          <div className="hidden flex-1 items-center justify-end gap-2 md:flex max-w-sm ml-4">
+            <InlineSearch className="w-full" />
+          </div>
 
           {/* Right actions */}
           <div className="flex items-center gap-2">
@@ -53,9 +58,9 @@ export function Header() {
               variant="ghost"
               size="icon"
               className="md:hidden"
-              onClick={() => setSearchOpen(true)}
+              onClick={() => setMobileSearchOpen(true)}
             >
-              <MagnifyingGlass />
+              <MagnifyingGlass size={20} />
             </Button>
 
             <Button
@@ -154,7 +159,10 @@ export function Header() {
               </SheetTrigger>
               <SheetContent side="right" className="w-80 overflow-y-auto">
                 <SheetTitle className="p-4 ">Menu</SheetTitle>
-                <nav className="flex flex-col gap-1 pt-4">
+                <div className="px-4 mb-4">
+                  <InlineSearch className="w-full py-2" placeholder="Search tools..." />
+                </div>
+                <nav className="flex flex-col gap-1 pt-2">
                   {/* Auth section in mobile menu */}
                   {!isLoading && !user && (
                     <>
@@ -179,9 +187,13 @@ export function Header() {
 
                   {!isLoading && user && (
                     <>
-                      <div className="px-3 py-2">
+                      <div className="px-3 py-2 border-b border-border">
                         <p className="text-sm font-medium text-foreground">{user.name}</p>
                         <p className="text-xs text-muted-foreground">{user.email}</p>
+                      </div>
+                      <div className="px-3 py-3 border-b border-border mb-2 space-y-3">
+                        <p className="text-sm font-medium text-foreground cursor-pointer hover:text-primary transition-colors">Your Saved Data</p>
+                        <p className="text-sm font-medium text-foreground cursor-pointer hover:text-primary transition-colors">Feedback for us</p>
                       </div>
                       <button
                         onClick={() => {
@@ -209,6 +221,39 @@ export function Header() {
                   >
                     Home
                   </Link>
+
+                  {/* Pinned Tools Section */}
+                  {user && pinnedTools.length > 0 && (
+                    <>
+                      <Separator className="my-2" />
+                      <p className="px-3 py-1 text-xs font-semibold text-primary uppercase tracking-wider flex items-center gap-1.5">
+                        <PushPin weight="fill" />
+                        Pinned Tools
+                      </p>
+                      {pinnedTools.map((slug) => {
+                        const tool = tools.find((t) => t.slug === slug);
+                        if (!tool) return null;
+                        const toolUrl = `/${tool.category}/${tool.slug}`;
+                        return (
+                          <Link
+                            key={`pinned-menu-${slug}`}
+                            href={toolUrl}
+                            onClick={() => setMobileOpen(false)}
+                            className={cn(
+                              "flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors",
+                              pathname === toolUrl
+                                ? "bg-accent text-primary font-medium"
+                                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                            )}
+                          >
+                            <span>📌</span>
+                            <span className="truncate">{tool.name}</span>
+                          </Link>
+                        );
+                      })}
+                    </>
+                  )}
+
                   <Separator className="my-2" />
                   <p className="px-3 py-1 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     Categories
@@ -235,8 +280,6 @@ export function Header() {
           </div>
         </div>
       </header>
-
-      <CommandSearch open={searchOpen} onOpenChange={setSearchOpen} />
     </>
   );
 }

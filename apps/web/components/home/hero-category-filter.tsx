@@ -82,16 +82,14 @@ export function HeroCategoryFilter() {
                 >
                   <Card className="h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 group-hover:border-primary/20">
                     <CardHeader className="flex flex-col gap-3 p-4">
-                      <div className="flex items-center justify-between">
+                      <div className="w-full flex items-center justify-between">
                         <span className="text-2xl">{cat?.emoji}</span>
                         {tool.status === "coming-soon" ? (
                           <Badge variant="outline" className="text-[10px]">
                             Coming Soon
                           </Badge>
                         ) : (
-                          <Badge variant="default" className="text-[10px]">
-                            Live
-                          </Badge>
+                          ""
                         )}
                       </div>
                       <div>

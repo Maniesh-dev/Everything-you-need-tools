@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,8 +14,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@work
 import { Separator } from "@workspace/ui/components/separator";
 import { getCategoryBySlug } from "@/lib/categories";
 import { getToolBySlug, getToolsByCategory, tools } from "@/lib/tools-registry";
-import Link from "next/link";
 import { PdfMergerTool } from "@/components/tools/pdf/pdf-merger-tool";
+import { PinToolHeaderAction } from "@/components/tools/pin-tool-header-action";
+import { PinToolPrompt } from "@/components/tools/pin-tool-prompt";
 
 interface ToolPageProps {
   params: Promise<{ category: string; tool: string }>;
@@ -84,22 +86,30 @@ export default async function ToolPage({ params }: ToolPageProps) {
             <div className="flex items-start gap-4">
               <span className="text-4xl">{cat.emoji}</span>
               <div className="flex-1">
-                <div className="flex items-center gap-3 flex-wrap">
+                <div className="flex items-center gap-3 flex-wrap justify-between">
                   <h1 className="font-heading text-2xl font-bold sm:text-3xl">
                     {toolData.name}
                   </h1>
                   {toolData.status === "coming-soon" ? (
                     <Badge variant="outline">Coming Soon</Badge>
                   ) : (
-                    <Badge>Live</Badge>
+                    ""
                   )}
                   {toolData.isTrending && (
                     <Badge variant="secondary">🔥 Trending</Badge>
                   )}
+                  <div className="hidden md:block ">
+                    <PinToolHeaderAction toolSlug={toolData.slug} />
+                  </div>
                 </div>
                 <p className="mt-2 text-muted-foreground">
                   {toolData.description}
                 </p>
+
+                <Separator className="mt-4 md:hidden" />
+                <div className="md:hidden mt-4">
+                  <PinToolHeaderAction toolSlug={toolData.slug} />
+                </div>
               </div>
             </div>
           </div>
@@ -130,6 +140,8 @@ export default async function ToolPage({ params }: ToolPageProps) {
               </CardContent>
             </Card>
           )}
+
+          <PinToolPrompt />
         </div>
 
         {/* Sidebar — related tools */}

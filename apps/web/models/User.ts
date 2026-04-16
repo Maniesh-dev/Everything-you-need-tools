@@ -13,6 +13,7 @@ export interface IUser extends Document {
   verificationToken: string | null;
   verificationTokenExpiry: Date | null;
   refreshTokens: string[]; // hashed refresh tokens (supports multi-device)
+  pinnedTools: string[];
   createdAt: Date;
   updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
@@ -77,6 +78,10 @@ const UserSchema = new mongoose.Schema<IUser>(
       type: [String],
       default: [],
       select: false, // Don't leak token hashes
+    },
+    pinnedTools: {
+      type: [String],
+      default: [],
     },
   },
   {

@@ -79,6 +79,14 @@ export function PdfMergerTool() {
   const [saveError, setSaveError] = React.useState<string | null>(null);
   const [saveSuccess, setSaveSuccess] = React.useState<string | null>(null);
   const [mergedOutput, setMergedOutput] = React.useState<MergedPdfOutput | null>(null);
+  const [previewUrl, setPreviewUrl] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    return () => {
+      // Cleanup object URL on unmount to prevent memory leaks
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
 
   const totalSize = React.useMemo(
     () => pdfs.reduce((sum, item) => sum + item.file.size, 0),
@@ -92,6 +100,10 @@ export function PdfMergerTool() {
     setMergedOutput(null);
     setSaveError(null);
     setSaveSuccess(null);
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+      setPreviewUrl(null);
+    }
   }
 
   function addFiles(fileList: FileList | null) {
@@ -244,16 +256,14 @@ export function PdfMergerTool() {
       const blob = new Blob([mergedBytesForUse.buffer], {
         type: "application/pdf",
       });
+      
+      // Cleanup previous preview if it exists
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+      
       const url = URL.createObjectURL(blob);
-
-      const anchor = document.createElement("a");
-      anchor.href = url;
-      anchor.download = outputFileName;
-      document.body.appendChild(anchor);
-      anchor.click();
-      anchor.remove();
-
-      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+      setPreviewUrl(url);
       setSuccess(`Merged ${pdfs.length} files successfully.`);
     } catch (mergeError) {
       const message =
@@ -349,7 +359,7 @@ export function PdfMergerTool() {
               onClick={mergePdfs}
               disabled={pdfs.length < 2 || isMerging}
             >
-              {isMerging ? "Merging..." : "Merge and Download"}
+              {isMerging ? "Merging..." : "Merge PDFs"}
             </Button>
           </div>
         </div>
@@ -406,6 +416,27 @@ export function PdfMergerTool() {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {previewUrl && mergedOutput && (
+          <div className="space-y-4 rounded-2xl border border-border/70 bg-muted/10 p-4">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium">Preview Merged PDF</p>
+              <Button asChild>
+                <a href={previewUrl} download={mergedOutput.fileName}>
+                  Download PDF
+                </a>
+              </Button>
+            </div>
+            
+            <div className="overflow-hidden rounded-xl border border-border/70 bg-white aspect-[3/4] sm:aspect-[4/3] w-full">
+              <iframe 
+                src={`${previewUrl}#toolbar=0`} 
+                title="PDF Preview"
+                className="w-full h-full" 
+              />
+            </div>
           </div>
         )}
 
