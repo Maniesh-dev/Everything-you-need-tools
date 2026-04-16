@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Badge } from "@workspace/ui/components/badge";
 import { Button } from "@workspace/ui/components/button";
@@ -9,6 +8,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@work
 import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
 import { useAuth } from "@/hooks/useAuth";
+import { SaveToAccountSection } from "@/components/tools/save-to-account-section";
+import {
+  MAX_SAVE_BYTES,
+  formatFileSize,
+  postSavedData,
+  uint8ToBase64,
+} from "@/lib/saved-data";
 
 interface SelectedPdf {
   id: string;
@@ -23,46 +29,10 @@ interface MergedPdfOutput {
   sourceFiles: Array<{ name: string; size: number }>;
 }
 
-const MAX_SAVE_BYTES = 8 * 1024 * 1024;
-
-function formatFileSize(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
-}
-
 function normalizeOutputName(name: string): string {
   const cleaned = name.trim().replace(/[\\/:*?"<>|]+/g, "-");
   if (!cleaned) return "merged.pdf";
   return cleaned.toLowerCase().endsWith(".pdf") ? cleaned : `${cleaned}.pdf`;
-}
-
-function uint8ToBase64(bytes: Uint8Array): string {
-  let binary = "";
-  const chunkSize = 16 * 1024;
-
-  for (let i = 0; i < bytes.length; i += chunkSize) {
-    const chunk = bytes.subarray(i, i + chunkSize);
-    let chunkBinary = "";
-    for (let j = 0; j < chunk.length; j += 1) {
-      chunkBinary += String.fromCharCode(chunk[j] ?? 0);
-    }
-    binary += chunkBinary;
-  }
-
-  return btoa(binary);
-}
-
-function getResponseMessage(payload: unknown): string | null {
-  if (
-    payload &&
-    typeof payload === "object" &&
-    "message" in payload &&
-    typeof (payload as { message?: unknown }).message === "string"
-  ) {
-    return (payload as { message: string }).message;
-  }
-  return null;
 }
 
 export function PdfMergerTool() {
@@ -178,33 +148,26 @@ export function PdfMergerTool() {
 
     try {
       const fileBase64 = uint8ToBase64(mergedOutput.bytes);
-      const response = await authFetch("/api/saved-data", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          category: "pdf",
-          toolId: "pdf-merger",
-          data: {
-            fileName: mergedOutput.fileName,
-            mimeType: mergedOutput.mimeType,
-            fileSize: mergedOutput.size,
-            fileBase64,
-            sourceFiles: mergedOutput.sourceFiles,
-            savedFromTool: "pdf-merger",
-            savedAt: new Date().toISOString(),
-          },
-        }),
+      const result = await postSavedData(authFetch, {
+        category: "pdf",
+        toolId: "pdf-merger",
+        data: {
+          fileName: mergedOutput.fileName,
+          mimeType: mergedOutput.mimeType,
+          fileSize: mergedOutput.size,
+          fileBase64,
+          sourceFiles: mergedOutput.sourceFiles,
+          savedFromTool: "pdf-merger",
+          savedAt: new Date().toISOString(),
+        },
       });
 
-      const payload = (await response.json().catch(() => null)) as unknown;
-
-      if (!response.ok) {
-        const message = getResponseMessage(payload) || "Failed to save file.";
-        setSaveError(message);
+      if (!result.ok) {
+        setSaveError(result.message);
         return;
       }
 
-      setSaveSuccess("File saved to your account successfully.");
+      setSaveSuccess(result.message);
     } catch {
       setSaveError("Unable to save right now. Please try again.");
     } finally {
@@ -440,55 +403,29 @@ export function PdfMergerTool() {
           </div>
         )}
 
-        <div className="space-y-3 rounded-2xl border border-border/70 bg-muted/20 p-4">
-          <p className="text-sm font-medium">Save this file to your account</p>
-
-          {!isLoading && !user && (
-            <div className="flex flex-wrap items-center gap-2">
-              <Button asChild>
-                <Link href={signupHref}>Want to save this file? Sign up</Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link href={loginHref}>Login</Link>
-              </Button>
-            </div>
-          )}
-
-          {!isLoading && user && (
-            <div className="flex flex-wrap items-center gap-2">
-              <Button
-                type="button"
-                onClick={saveMergedFile}
-                disabled={!mergedOutput || isSaving || isMerging}
-              >
-                {isSaving ? "Saving..." : "Save File"}
-              </Button>
-              <span className="text-xs text-muted-foreground">
-                Signed in as {user.email}
-              </span>
-            </div>
-          )}
-
-          {isLoading && (
-            <Button type="button" variant="outline" disabled>
-              Checking account...
-            </Button>
-          )}
-
-          {user && !mergedOutput && (
-            <p className="text-xs text-muted-foreground">
-              Merge and download your PDF once, then click Save File.
-            </p>
-          )}
-          {mergedOutput && (
-            <p className="text-xs text-muted-foreground">
-              Ready to save: <span className="font-medium">{mergedOutput.fileName}</span>{" "}
-              ({formatFileSize(mergedOutput.size)})
-            </p>
-          )}
-          {saveError && <p className="text-sm text-destructive">{saveError}</p>}
-          {saveSuccess && <p className="text-sm text-emerald-600">{saveSuccess}</p>}
-        </div>
+        <SaveToAccountSection
+          user={user ? { email: user.email } : null}
+          isLoading={isLoading}
+          signupHref={signupHref}
+          loginHref={loginHref}
+          onSave={saveMergedFile}
+          saveDisabled={!mergedOutput || isSaving || isMerging}
+          isSaving={isSaving}
+          idleHint={
+            user && !mergedOutput
+              ? "Merge and download your PDF once, then click Save File."
+              : null
+          }
+          readyHint={
+            mergedOutput
+              ? `Ready to save: ${mergedOutput.fileName} (${formatFileSize(
+                  mergedOutput.size
+                )})`
+              : null
+          }
+          error={saveError}
+          success={saveSuccess}
+        />
 
         {error && <p className="text-sm text-destructive">{error}</p>}
         {success && <p className="text-sm text-emerald-600">{success}</p>}

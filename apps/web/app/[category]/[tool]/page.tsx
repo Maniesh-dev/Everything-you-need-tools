@@ -15,8 +15,256 @@ import { Separator } from "@workspace/ui/components/separator";
 import { getCategoryBySlug } from "@/lib/categories";
 import { getToolBySlug, getToolsByCategory, tools } from "@/lib/tools-registry";
 import { PdfMergerTool } from "@/components/tools/pdf/pdf-merger-tool";
+import { PdfSplitterTool } from "@/components/tools/pdf/pdf-splitter-tool";
+import { PdfRotatorTool } from "@/components/tools/pdf/pdf-rotator-tool";
+import { PdfFormFillerTool } from "@/components/tools/pdf/pdf-form-filler-tool";
+import { PdfToImageTool } from "@/components/tools/pdf/pdf-to-image-tool";
+
+import { WordCounterTool } from "@/components/tools/text/word-counter-tool";
+import { CaseConverterTool } from "@/components/tools/text/case-converter-tool";
+import { LoremIpsumTool } from "@/components/tools/text/lorem-ipsum-tool";
+import { DuplicateRemoverTool } from "@/components/tools/text/duplicate-remover-tool";
+import { TextToSlugTool } from "@/components/tools/text/text-to-slug-tool";
+import { TextSorterTool } from "@/components/tools/text/text-sorter-tool";
+import { FindReplaceTool } from "@/components/tools/text/find-replace-tool";
+import { WhitespaceCleanerTool } from "@/components/tools/text/whitespace-cleaner-tool";
+
+import { JsonFormatterTool } from "@/components/tools/developer/json-formatter-tool";
+import { JsonToCsvTool } from "@/components/tools/data-file/json-to-csv-tool";
+import { CsvToJsonTool } from "@/components/tools/data-file/csv-to-json-tool";
+import { YamlJsonConverterTool } from "@/components/tools/data-file/yaml-json-converter-tool";
+import { FileChecksumTool } from "@/components/tools/data-file/file-checksum-tool";
+import { Base64EncoderTool } from "@/components/tools/developer/base64-encoder-tool";
+import { HtmlEntityEncoderTool } from "@/components/tools/developer/html-entity-encoder-tool";
+import { RegexTesterTool } from "@/components/tools/developer/regex-tester-tool";
+import { MarkdownToHtmlTool } from "@/components/tools/developer/markdown-to-html-tool";
+import { UuidGeneratorTool } from "@/components/tools/developer/uuid-generator-tool";
+import { HashGeneratorTool } from "@/components/tools/developer/hash-generator-tool";
+import { JwtDecoderTool } from "@/components/tools/developer/jwt-decoder-tool";
+
+import { NumberBaseConverterTool } from "@/components/tools/converters/number-base-converter-tool";
+import { AgeCalculatorTool } from "@/components/tools/converters/age-calculator-tool";
+import { PercentageCalculatorTool } from "@/components/tools/converters/percentage-calculator-tool";
+import { RomanNumeralTool } from "@/components/tools/converters/roman-numeral-tool";
+
+import { PasswordGeneratorTool } from "@/components/tools/security/password-generator-tool";
+import { PasswordStrengthTool } from "@/components/tools/security/password-strength-tool";
+import { TextEncryptorTool } from "@/components/tools/security/text-encryptor-tool";
+
+import { ColorConverterTool } from "@/components/tools/design/color-converter-tool";
+import { ContrastCheckerTool } from "@/components/tools/design/contrast-checker-tool";
+import { CssGradientTool } from "@/components/tools/design/css-gradient-tool";
+import { BorderRadiusTool } from "@/components/tools/design/border-radius-tool";
+import { ColorPaletteTool } from "@/components/tools/design/color-palette-tool";
+
 import { PinToolHeaderAction } from "@/components/tools/pin-tool-header-action";
 import { PinToolPrompt } from "@/components/tools/pin-tool-prompt";
+
+import { StopwatchTool } from "@/components/tools/clock/stopwatch-tool";
+import { CountdownTimerTool } from "@/components/tools/clock/countdown-timer-tool";
+import { AlarmClockTool } from "@/components/tools/clock/alarm-clock-tool";
+
+import { DaysUntilSinceTool } from "@/components/tools/calendar/days-until-since-tool";
+import { DateAddSubtractTool } from "@/components/tools/calendar/date-add-subtract-tool";
+import { WorkingDaysTool } from "@/components/tools/calendar/working-days-tool";
+
+import { MetaTagGeneratorTool } from "@/components/tools/seo/meta-tag-generator-tool";
+import { RobotsTxtGeneratorTool } from "@/components/tools/seo/robots-txt-generator-tool";
+import { KeywordDensityTool } from "@/components/tools/seo/keyword-density-tool";
+
+import { TwitterCounterTool } from "@/components/tools/social-media/twitter-counter-tool";
+import { HashtagGeneratorTool } from "@/components/tools/social-media/hashtag-generator-tool";
+import { YoutubeTesterTool } from "@/components/tools/social-media/youtube-tester-tool";
+import { EmojiPickerTool } from "@/components/tools/social-media/emoji-picker-tool";
+
+import { ImageToBase64Tool } from "@/components/tools/image/image-to-base64-tool";
+import { QrCodeGeneratorTool } from "@/components/tools/link-url/qr-code-generator-tool";
+import { UrlEncodeDecodeTool } from "@/components/tools/link-url/url-encode-decode-tool";
+import { OnlineNotepadTool } from "@/components/tools/general/online-notepad-tool";
+
+import { GstCalculatorTool } from "@/components/tools/finance/gst-calculator-tool";
+import { EmiCalculatorTool } from "@/components/tools/finance/emi-calculator-tool";
+import { TipCalculatorTool } from "@/components/tools/finance/tip-calculator-tool";
+import { DiscountCalculatorTool } from "@/components/tools/finance/discount-calculator-tool";
+import { SalaryCalculatorTool } from "@/components/tools/finance/salary-calculator-tool";
+import { SipCalculatorTool } from "@/components/tools/finance/sip-calculator-tool";
+import { FdRdCalculatorTool } from "@/components/tools/finance/fd-rd-calculator-tool";
+
+import { BmiCalculatorTool } from "@/components/tools/health/bmi-calculator-tool";
+import { WaterIntakeTool } from "@/components/tools/health/water-intake-tool";
+import { OneRepMaxTool } from "@/components/tools/health/one-rep-max-tool";
+import { BodyFatTool } from "@/components/tools/health/body-fat-tool";
+import { RunningPaceTool } from "@/components/tools/health/running-pace-tool";
+
+import { PomodoroTimerTool } from "@/components/tools/education/pomodoro-timer-tool";
+import { GpaCalculatorTool } from "@/components/tools/education/gpa-calculator-tool";
+
+import { TextToSpeechTool } from "@/components/tools/language/text-to-speech-tool";
+import { MorseCodeTool } from "@/components/tools/language/morse-code-tool";
+import { BrailleConverterTool } from "@/components/tools/language/braille-converter-tool";
+import { BarcodeGeneratorTool } from "@/components/tools/ecommerce/barcode-generator-tool";
+
+import { MyIpTool } from "@/components/tools/network/my-ip-tool";
+
+import { RecipeConverterTool } from "@/components/tools/food-cooking/recipe-converter-tool";
+import { CookingTimerTool } from "@/components/tools/food-cooking/cooking-timer-tool";
+
+import { SaleCalculatorTool } from "@/components/tools/shopping/sale-calculator-tool";
+
+import { FuelCostTool } from "@/components/tools/travel/fuel-cost-tool";
+import { SpeedDistanceTimeControl } from "@/components/tools/travel/speed-distance-time-tool";
+
+import { RandomPickerTool } from "@/components/tools/fun-viral/random-picker-tool";
+import { TruthOrDareTool } from "@/components/tools/fun-viral/truth-or-dare-tool";
+
+import { InstagramFormatterTool } from "@/components/tools/social-media/instagram-formatter-tool";
+
+import { DateDifferenceTool } from "@/components/tools/converters/date-difference-tool";
+import { FractionSimplifierTool } from "@/components/tools/converters/fraction-simplifier-tool";
+
+import { FakeDataTool } from "@/components/tools/security/fake-data-tool";
+
+// Mapping of category -> tool slug -> component
+const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
+  pdf: {
+    "pdf-merger": PdfMergerTool,
+    "pdf-splitter": PdfSplitterTool,
+    "pdf-rotator": PdfRotatorTool,
+    "pdf-form-filler": PdfFormFillerTool,
+    "pdf-to-image": PdfToImageTool,
+  },
+  "data-file": {
+    "csv-to-json": CsvToJsonTool,
+    "json-to-csv": JsonToCsvTool,
+    "yaml-json-converter": YamlJsonConverterTool,
+    "file-checksum": FileChecksumTool,
+  },
+  "text-writing": {
+    "word-counter": WordCounterTool,
+    "case-converter": CaseConverterTool,
+    "lorem-ipsum": LoremIpsumTool,
+    "duplicate-remover": DuplicateRemoverTool,
+    "text-to-slug": TextToSlugTool,
+    "text-sorter": TextSorterTool,
+    "find-replace": FindReplaceTool,
+    "whitespace-cleaner": WhitespaceCleanerTool,
+  },
+  developer: {
+    "json-formatter": JsonFormatterTool,
+    "base64-encoder": Base64EncoderTool,
+    "html-entity-encode": HtmlEntityEncoderTool,
+    "regex-tester": RegexTesterTool,
+    "markdown-to-html": MarkdownToHtmlTool,
+    "uuid-generator": UuidGeneratorTool,
+    "hash-generator": HashGeneratorTool,
+    "jwt-decoder": JwtDecoderTool,
+  },
+  "converters-calculators": {
+    "number-base-converter": NumberBaseConverterTool,
+    "age-calculator": AgeCalculatorTool,
+    "percentage-calculator": PercentageCalculatorTool,
+    "roman-numeral": RomanNumeralTool,
+    "date-difference": DateDifferenceTool,
+    "fraction-simplifier": FractionSimplifierTool,
+  },
+  "link-url": {
+    "qr-code-generator": QrCodeGeneratorTool,
+    "url-encode-decode": UrlEncodeDecodeTool,
+  },
+  "security-privacy": {
+    "password-generator": PasswordGeneratorTool,
+    "password-strength": PasswordStrengthTool,
+    "text-encryptor": TextEncryptorTool,
+    "fake-data-generator": FakeDataTool,
+  },
+  "design-color": {
+    "hex-rgb-hsl": ColorConverterTool,
+    "contrast-checker": ContrastCheckerTool,
+    "gradient-generator": CssGradientTool,
+    "border-radius-generator": BorderRadiusTool,
+    "color-palette": ColorPaletteTool,
+  },
+  "clock-time": {
+    "stopwatch": StopwatchTool,
+    "countdown-timer": CountdownTimerTool,
+    "alarm-clock": AlarmClockTool,
+  },
+  "calendar-date": {
+    "days-until-since": DaysUntilSinceTool,
+    "date-add-subtract": DateAddSubtractTool,
+    "working-days": WorkingDaysTool,
+  },
+  "seo-web": {
+    "meta-tag-generator": MetaTagGeneratorTool,
+    "robots-txt-generator": RobotsTxtGeneratorTool,
+    "keyword-density": KeywordDensityTool,
+  },
+  "social-media": {
+    "twitter-counter": TwitterCounterTool,
+    "hashtag-generator": HashtagGeneratorTool,
+    "youtube-tester": YoutubeTesterTool,
+    "emoji-picker": EmojiPickerTool,
+    "instagram-formatter": InstagramFormatterTool,
+  },
+  "image": {
+    "image-to-base64": ImageToBase64Tool,
+  },
+  "general-productivity": {
+    "online-notepad": OnlineNotepadTool,
+  },
+  "finance-business": {
+    "gst-calculator": GstCalculatorTool,
+    "emi-calculator": EmiCalculatorTool,
+    "tip-calculator": TipCalculatorTool,
+    "discount-calculator": DiscountCalculatorTool,
+    "salary-calculator": SalaryCalculatorTool,
+    "sip-calculator": SipCalculatorTool,
+    "fd-calculator": FdRdCalculatorTool,
+  },
+  "health-fitness": {
+    "bmi-calculator": BmiCalculatorTool,
+    "water-intake": WaterIntakeTool,
+    "one-rep-max": OneRepMaxTool,
+    "body-fat": BodyFatTool,
+    "running-pace": RunningPaceTool,
+  },
+  "education-learning": {
+    "pomodoro-timer": PomodoroTimerTool,
+  },
+  "student-education": {
+    "pomodoro-timer": PomodoroTimerTool, // Added alias because registry says student-education
+    "gpa-calculator": GpaCalculatorTool,
+  },
+  "language-translation": {
+    "text-to-speech": TextToSpeechTool,
+    "morse-code": MorseCodeTool,
+    "braille-converter": BrailleConverterTool,
+  },
+  "ecommerce-seller": {
+    "barcode-generator": BarcodeGeneratorTool,
+  },
+  "mobile-app": {
+    "my-ip": MyIpTool,
+  },
+  "network-web": {
+    "my-ip": MyIpTool,
+  },
+  "food-cooking": {
+    "recipe-converter": RecipeConverterTool,
+    "cooking-timer": CookingTimerTool,
+  },
+  "shopping-deals": {
+    "sale-calculator": SaleCalculatorTool,
+  },
+  "travel-commute": {
+    "fuel-calculator": FuelCostTool,
+    "speed-distance-time": SpeedDistanceTimeControl,
+  },
+  "fun-viral": {
+    "random-picker": RandomPickerTool,
+    "truth-or-dare": TruthOrDareTool,
+  },
+};
 
 interface ToolPageProps {
   params: Promise<{ category: string; tool: string }>;
@@ -117,29 +365,32 @@ export default async function ToolPage({ params }: ToolPageProps) {
           <Separator className="mb-8" />
 
           {/* Tool content area */}
-          {toolData.category === "pdf" && toolData.slug === "pdf-merger" ? (
-            <PdfMergerTool />
-          ) : (
-            <Card className="min-h-[400px]">
-              <CardContent className="flex flex-col items-center justify-center gap-4 py-20 text-center">
-                <span className="text-6xl animate-float">{cat.emoji}</span>
-                <h2 className="font-heading text-xl font-semibold text-muted-foreground">
-                  Coming Soon
-                </h2>
-                <p className="max-w-sm text-sm text-muted-foreground">
-                  We&apos;re building this tool. Check back soon or explore other
-                  tools in the{" "}
-                  <Link
-                    href={`/${cat.slug}`}
-                    className="text-primary underline underline-offset-4"
-                  >
-                    {cat.name}
-                  </Link>{" "}
-                  category.
-                </p>
-              </CardContent>
-            </Card>
-          )}
+          {(() => {
+            const Component = TOOL_COMPONENTS[cat.slug]?.[toolData.slug];
+            if (Component) return <Component />;
+
+            return (
+              <Card className="min-h-[400px]">
+                <CardContent className="flex flex-col items-center justify-center gap-4 py-20 text-center">
+                  <span className="text-6xl animate-float">{cat.emoji}</span>
+                  <h2 className="font-heading text-xl font-semibold text-muted-foreground">
+                    Coming Soon
+                  </h2>
+                  <p className="max-w-sm text-sm text-muted-foreground">
+                    We&apos;re building this tool. Check back soon or explore other
+                    tools in the{" "}
+                    <Link
+                      href={`/${cat.slug}`}
+                      className="text-primary underline underline-offset-4"
+                    >
+                      {cat.name}
+                    </Link>{" "}
+                    category.
+                  </p>
+                </CardContent>
+              </Card>
+            );
+          })()}
 
           <PinToolPrompt />
         </div>

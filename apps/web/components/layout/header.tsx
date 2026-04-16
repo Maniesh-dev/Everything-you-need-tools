@@ -109,7 +109,13 @@ export function Header() {
                             </p>
                           </div>
                           <div className="px-3 py-2 border-b border-border mb-1 space-y-2">
-                            <p className="text-sm font-medium text-foreground cursor-pointer">Your Saved Data</p>
+                            <Link
+                              href="/saved-data"
+                              onClick={() => setUserMenuOpen(false)}
+                              className="block text-sm font-medium text-foreground cursor-pointer hover:text-primary transition-colors"
+                            >
+                              Your Saved Data
+                            </Link>
                             <p className="text-sm font-medium text-foreground cursor-pointer">Feedback for us</p>
                           </div>
                           <button
@@ -192,7 +198,13 @@ export function Header() {
                         <p className="text-xs text-muted-foreground">{user.email}</p>
                       </div>
                       <div className="px-3 py-3 border-b border-border mb-2 space-y-3">
-                        <p className="text-sm font-medium text-foreground cursor-pointer hover:text-primary transition-colors">Your Saved Data</p>
+                        <Link
+                          href="/saved-data"
+                          onClick={() => setMobileOpen(false)}
+                          className="block text-sm font-medium text-foreground cursor-pointer hover:text-primary transition-colors"
+                        >
+                          Your Saved Data
+                        </Link>
                         <p className="text-sm font-medium text-foreground cursor-pointer hover:text-primary transition-colors">Feedback for us</p>
                       </div>
                       <button

@@ -10,13 +10,14 @@ All In One Tools is a monorepo web platform for free browser-based utilities acr
 
 The web app is built with Next.js and a shared UI package, and currently includes:
 - Category and tool discovery (`36` categories)
-- Registry-driven tool routing (`307` tools listed)
+- Registry-driven tool routing (`307` tools listed, `60+` live and fully functional)
 - Auth system (email/password + Google OAuth)
 - Saved tool outputs for authenticated users
 - Tool pinning per user
 
 ## Tech Stack
 
+### Core
 - Next.js 16 (App Router, Turbopack in dev)
 - React 19
 - TypeScript
@@ -27,6 +28,14 @@ The web app is built with Next.js and a shared UI package, and currently include
 - JWT auth (access + refresh token flow)
 - Zod validation
 - Framer Motion
+
+### Specialized Libraries
+- **PDF**: `pdf-lib`, `pdfjs-dist`
+- **Data & Files**: `papaparse` (CSV), `js-yaml` (YAML), `jszip` (ZIP)
+- **Visuals**: `qrcode.react`, `jsbarcode`, `lucide-react`, `@phosphor-icons/react`
+- **Content**: `marked` (Markdown)
+- **Security**: `bcryptjs`, `jsonwebtoken`
+- **Communication**: `nodemailer` (SMTP/Email)
 
 ## Monorepo Structure
 
