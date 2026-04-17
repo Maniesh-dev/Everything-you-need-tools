@@ -10,7 +10,7 @@ All In One Tools is a monorepo web platform for free browser-based utilities acr
 
 The web app is built with Next.js and a shared UI package, and currently includes:
 - Category and tool discovery (`36` categories)
-- Registry-driven tool routing (`307` tools listed, `102+` live and fully functional)
+- Registry-driven tool routing (`300+` tools listed, `110+` live and fully functional)
 - Auth system (email/password + Google OAuth)
 - Saved tool outputs for authenticated users
 - Tool pinning per user
@@ -30,12 +30,14 @@ The web app is built with Next.js and a shared UI package, and currently include
 - Framer Motion
 
 ### Specialized Libraries
-- **PDF**: `pdf-lib`, `pdfjs-dist`
+- **PDF**: `pdf-lib`, `pdfjs-dist`, `@pdfsmaller/pdf-encrypt-lite`
 - **Data & Files**: `papaparse` (CSV), `js-yaml` (YAML), `jszip` (ZIP)
 - **Visuals**: `qrcode.react`, `jsbarcode`, `lucide-react`, `@phosphor-icons/react`
 - **Content**: `marked` (Markdown)
 - **Security**: `bcryptjs`, `jsonwebtoken`
 - **Communication**: `nodemailer` (SMTP/Email)
+- **Networking**: `rdap` protocol integration
+- **Media**: `exifreader` (EXIF metadata)
 
 ## Monorepo Structure
 
@@ -102,9 +104,10 @@ packages/
   - **To-Do & Tasks**: Smart local-storage To-Do lists, Grocery planners, Kanban boards, Priority Matrices.
   - **Text & Writing**: Diff Checkers, Base Converters, Fancy Styling, Flesch-Kincaid Readability Analyzers.
   - **Converters & Calculators**: Live global Currency Exchange fetching, Unit Mapping, Statistics, Mifflin-St Jeor TDEE parsing.
-  - **Image Tools**: Format Converter, Compressor, Resizer, Watermark Adder, Color Picker — all powered by native HTML5 Canvas.
-  - **Social Media**: Social Image Resizer with 9 platform presets (Instagram, Twitter, YouTube, Facebook).
-  - **Design & Color**: Placeholder Image Generator, Gradient Builder, Contrast Checker, Color Palette Generator.
+  - **Image Tools**: Format Converter, Compressor, Resizer, Watermark Adder, Color Picker, **Bulk Renamer**, **EXIF Viewer**.
+  - **Social Media**: Social Image Resizer (9 platform presets), **YouTube Title Tester**, **Instagram Caption Formatter**.
+  - **Design & Color**: Placeholder Image Generator, Gradient Builder, Contrast Checker, Color Palette Generator, **Font Pairing Suggester**.
+  - **SEO & Web Tools**: Meta Tag Generator, Robots.txt Generator, **Sitemap Generator**, **Domain Age Checker**, **Website Screenshot**.
 - Dynamic category page: `apps/web/app/[category]/page.tsx`
 - Dynamic tool page: `apps/web/app/[category]/[tool]/page.tsx`
 - Tool registry: `apps/web/lib/tools-registry.ts`

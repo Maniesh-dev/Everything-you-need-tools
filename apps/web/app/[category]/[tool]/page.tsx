@@ -108,6 +108,9 @@ import { EventCountdownTool } from "@/components/tools/calendar/event-countdown-
 import { MetaTagGeneratorTool } from "@/components/tools/seo/meta-tag-generator-tool";
 import { RobotsTxtGeneratorTool } from "@/components/tools/seo/robots-txt-generator-tool";
 import { KeywordDensityTool } from "@/components/tools/seo/keyword-density-tool";
+import { SitemapGeneratorTool } from "@/components/tools/seo/sitemap-generator-tool";
+import { DomainAgeCheckerTool } from "@/components/tools/seo/domain-age-checker-tool";
+import { WebsiteScreenshotTool } from "@/components/tools/seo/website-screenshot-tool";
 
 import { TwitterCounterTool } from "@/components/tools/social-media/twitter-counter-tool";
 import { HashtagGeneratorTool } from "@/components/tools/social-media/hashtag-generator-tool";
@@ -121,11 +124,15 @@ import { ImageCompressorTool } from "@/components/tools/image/image-compressor-t
 import { ImageResizerTool } from "@/components/tools/image/image-resizer-tool";
 import { WatermarkAdderTool } from "@/components/tools/image/watermark-adder-tool";
 import { ColorPickerImageTool } from "@/components/tools/image/color-picker-image-tool";
+import { BulkImageRenamerTool } from "@/components/tools/image/bulk-image-renamer-tool";
+import { ExifViewerTool } from "@/components/tools/image/exif-viewer-tool";
 import { PlaceholderImageTool } from "@/components/tools/design/placeholder-image-tool";
 import { SocialImageResizerTool } from "@/components/tools/social-media/social-image-resizer-tool";
 import { QrCodeGeneratorTool } from "@/components/tools/link-url/qr-code-generator-tool";
 import { UrlEncodeDecodeTool } from "@/components/tools/link-url/url-encode-decode-tool";
 import { UtmBuilderTool } from "@/components/tools/link-url/utm-builder-tool";
+import { BrokenLinkCheckerTool } from "@/components/tools/link-url/broken-link-checker-tool";
+import { OgPreviewTool } from "@/components/tools/link-url/og-preview-tool";
 import { OnlineNotepadTool } from "@/components/tools/general/online-notepad-tool";
 import { ScreenResolutionTool } from "@/components/tools/general/screen-resolution-tool";
 import { BrowserInfoTool } from "@/components/tools/general/browser-info-tool";
@@ -138,6 +145,7 @@ import { DiscountCalculatorTool } from "@/components/tools/finance/discount-calc
 import { SalaryCalculatorTool } from "@/components/tools/finance/salary-calculator-tool";
 import { SipCalculatorTool } from "@/components/tools/finance/sip-calculator-tool";
 import { FdRdCalculatorTool } from "@/components/tools/finance/fd-rd-calculator-tool";
+import { ZipCompressorTool } from "@/components/tools/data-file/zip-compressor-tool";
 
 import { BmiCalculatorTool } from "@/components/tools/health/bmi-calculator-tool";
 import { WaterIntakeTool } from "@/components/tools/health/water-intake-tool";
@@ -163,6 +171,7 @@ import { BrailleConverterTool } from "@/components/tools/language/braille-conver
 import { BarcodeGeneratorTool } from "@/components/tools/ecommerce/barcode-generator-tool";
 
 import { MyIpTool } from "@/components/tools/network/my-ip-tool";
+import { DnsLookupTool } from "@/components/tools/network/dns-lookup-tool";
 
 import { RecipeConverterTool } from "@/components/tools/food-cooking/recipe-converter-tool";
 import { CookingTimerTool } from "@/components/tools/food-cooking/cooking-timer-tool";
@@ -183,6 +192,18 @@ import { DateDifferenceTool } from "@/components/tools/converters/date-differenc
 import { FractionSimplifierTool } from "@/components/tools/converters/fraction-simplifier-tool";
 
 import { FakeDataTool } from "@/components/tools/security/fake-data-tool";
+import { TempEmailTool } from "@/components/tools/security/temp-email-tool";
+import { ApiFormatterTool } from "@/components/tools/developer/api-formatter-tool";
+import { FontPairingTool } from "@/components/tools/design/font-pairing-tool";
+import { HolidayCalendarTool } from "@/components/tools/calendar/holiday-calendar-tool";
+import { PdfPasswordTool } from "@/components/tools/pdf/pdf-password-tool";
+
+import { ScreenRecorderTool } from "@/components/tools/video/screen-recorder-tool";
+import { FaviconGeneratorTool } from "@/components/tools/design/favicon-generator-tool";
+import { FocusModeTool } from "@/components/tools/general/focus-mode-tool";
+import { DecisionMakerTool } from "@/components/tools/general/decision-maker-tool";
+import { MacroCalculatorTool } from "@/components/tools/health/macro-calculator-tool";
+import { SleepScheduleTool } from "@/components/tools/health/sleep-schedule-tool";
 
 // Mapping of category -> tool slug -> component
 const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
@@ -193,6 +214,7 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
     "pdf-form-filler": PdfFormFillerTool,
     "pdf-to-image": PdfToImageTool,
     "pdf-compressor": PdfCompressorTool,
+    "pdf-password": PdfPasswordTool,
   },
   "data-file": {
     "csv-to-json": CsvToJsonTool,
@@ -200,15 +222,20 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
     "csv-viewer": CsvEditorTool,
     "yaml-json-converter": YamlJsonConverterTool,
     "file-checksum": FileChecksumTool,
+    "zip-compressor": ZipCompressorTool,
   },
   "text-writing": {
     "word-counter": WordCounterTool,
     "case-converter": CaseConverterTool,
+    "text-diff": TextDiffTool,
     "lorem-ipsum": LoremIpsumTool,
     "duplicate-remover": DuplicateRemoverTool,
     "text-to-slug": TextToSlugTool,
+    "fancy-text": FancyTextTool,
+    "readability-scorer": ReadabilityScorerTool,
     "text-sorter": TextSorterTool,
     "find-replace": FindReplaceTool,
+    "line-numbers": LineNumbersTool,
     "whitespace-cleaner": WhitespaceCleanerTool,
   },
   "developer": {
@@ -223,8 +250,10 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
     "cron-builder": CronBuilderTool,
     "css-box-shadow": CssBoxShadowTool,
     "sql-formatter": SqlFormatterTool,
+    "css-gradient-generator": CssGradientTool,
     "xml-json-converter": XmlJsonConverterTool,
     "html-css-js-minifier": CodeMinifierTool,
+    "api-formatter": ApiFormatterTool,
   },
   "converters-calculators": {
     "unit-converter": UnitConverterTool,
@@ -245,6 +274,8 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
     "qr-code-generator": QrCodeGeneratorTool,
     "url-encode-decode": UrlEncodeDecodeTool,
     "utm-builder": UtmBuilderTool,
+    "broken-link-checker": BrokenLinkCheckerTool,
+    "og-preview": OgPreviewTool,
   },
   "security-privacy": {
     "password-generator": PasswordGeneratorTool,
@@ -252,6 +283,7 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
     "text-encryptor": TextEncryptorTool,
     "fake-data-generator": FakeDataTool,
     "ip-lookup": IpLookupTool,
+    "temp-email": TempEmailTool,
   },
   "design-color": {
     "hex-rgb-hsl": ColorConverterTool,
@@ -259,7 +291,9 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
     "gradient-generator": CssGradientTool,
     "border-radius-generator": BorderRadiusTool,
     "color-palette": ColorPaletteTool,
+    "favicon-generator": FaviconGeneratorTool,
     "placeholder-image": PlaceholderImageTool,
+    "font-pairing": FontPairingTool,
   },
   "clock-time": {
     "stopwatch": StopwatchTool,
@@ -296,11 +330,15 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
     "week-number": WeekNumberTool,
     "printable-calendar": PrintableCalendarTool,
     "event-countdown": EventCountdownTool,
+    "holiday-calendar": HolidayCalendarTool,
   },
   "seo-web": {
     "meta-tag-generator": MetaTagGeneratorTool,
     "robots-txt-generator": RobotsTxtGeneratorTool,
     "keyword-density": KeywordDensityTool,
+    "sitemap-generator": SitemapGeneratorTool,
+    "domain-age-checker": DomainAgeCheckerTool,
+    "website-screenshot": WebsiteScreenshotTool,
   },
   "social-media": {
     "twitter-counter": TwitterCounterTool,
@@ -319,11 +357,15 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
     "color-picker-image": ColorPickerImageTool,
     "image-to-pdf": ImageToPdfTool,
     "pdf-compressor": PdfCompressorTool,
+    "bulk-image-renamer": BulkImageRenamerTool,
+    "exif-viewer": ExifViewerTool,
   },
   "general-productivity": {
     "online-notepad": OnlineNotepadTool,
     "screen-resolution": ScreenResolutionTool,
     "browser-info": BrowserInfoTool,
+    "focus-mode": FocusModeTool,
+    "decision-maker": DecisionMakerTool,
     "clipboard-manager": ClipboardManagerTool,
   },
   "finance-business": {
@@ -341,6 +383,8 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
     "one-rep-max": OneRepMaxTool,
     "body-fat": BodyFatTool,
     "running-pace": RunningPaceTool,
+    "macro-calculator": MacroCalculatorTool,
+    "sleep-schedule": SleepScheduleTool,
     "steps-converter": StepsConverterTool,
   },
   "education-learning": {
@@ -364,6 +408,7 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
   },
   "network-web": {
     "my-ip": MyIpTool,
+    "dns-lookup": DnsLookupTool,
   },
   "food-cooking": {
     "recipe-converter": RecipeConverterTool,
@@ -384,6 +429,9 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
   },
   "video-audio-download": {
     "youtube-thumbnail": YoutubeThumbnailTool,
+  },
+  "video-editing": {
+    "screen-recorder": ScreenRecorderTool,
   },
 };
 

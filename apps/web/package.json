@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@pdfsmaller/pdf-encrypt-lite": "^1.0.2",
     "@phosphor-icons/react": "^2.1.10",
     "@react-oauth/google": "^0.13.5",
     "@types/clean-css": "^4.2.11",
@@ -25,6 +26,7 @@
     "clean-css": "^5.3.3",
     "cmdk": "^1.1.1",
     "diff": "^8.0.4",
+    "exifreader": "^4.38.1",
     "framer-motion": "^12.38.0",
     "fuse.js": "^7.3.0",
     "google-auth-library": "^10.6.2",

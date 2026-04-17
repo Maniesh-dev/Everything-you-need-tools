@@ -40,10 +40,16 @@ export const metadata: Metadata = {
     "BMI calculator",
     "countdown timer online",
     "CSS gradient generator",
+    "sitemap generator",
+    "domain age checker",
+    "broken link checker",
+    "bulk image renamer",
+    "exif viewer online",
+    "og preview checker"
   ],
   metadataBase: new URL("https://kraaft.manieshsanwal.in"),
   alternates: {
-    canonical: "/",
+    canonical: "./",
   },
   openGraph: {
     title: "kraaft | 300+ Free Online Tools",
@@ -78,6 +84,23 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "kraaft",
+    "alternateName": "All In One Tools",
+    "url": "https://kraaft.manieshsanwal.in",
+    "description": "300+ free online tools for developers, designers, and everyday tasks.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://kraaft.manieshsanwal.in/search?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <html
       lang="en"
@@ -91,6 +114,10 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-svh flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
           <Providers>
             <Header />

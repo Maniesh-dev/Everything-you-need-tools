@@ -20,7 +20,7 @@ export function PinToolHeaderAction({ toolSlug }: PinToolHeaderActionProps) {
     return (
       <div className="w-full ml-auto flex items-center gap-2">
         <p className="text-sm text-muted-foreground text-center">
-          Want to pin this tool? <Link href="/login" className="text-white hover:underline font-medium bg-green-500 px-2 py-1 rounded-full ml-2">please Login</Link>
+          Want to pin this tool? <Link href="/login" className="text-white hover:underline font-medium bg-green-500 px-2 py-1 rounded-full ml-2">Login</Link>
         </p>
       </div>
     );
