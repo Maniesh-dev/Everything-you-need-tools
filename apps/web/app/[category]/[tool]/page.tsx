@@ -41,6 +41,8 @@ import { MarkdownToHtmlTool } from "@/components/tools/developer/markdown-to-htm
 import { UuidGeneratorTool } from "@/components/tools/developer/uuid-generator-tool";
 import { HashGeneratorTool } from "@/components/tools/developer/hash-generator-tool";
 import { JwtDecoderTool } from "@/components/tools/developer/jwt-decoder-tool";
+import { CronBuilderTool } from "@/components/tools/developer/cron-builder-tool";
+import { CssBoxShadowTool } from "@/components/tools/developer/css-box-shadow-tool";
 
 import { NumberBaseConverterTool } from "@/components/tools/converters/number-base-converter-tool";
 import { AgeCalculatorTool } from "@/components/tools/converters/age-calculator-tool";
@@ -98,7 +100,10 @@ import { LineNumbersTool } from "@/components/tools/text-writing/line-numbers-to
 
 import { DaysUntilSinceTool } from "@/components/tools/calendar/days-until-since-tool";
 import { DateAddSubtractTool } from "@/components/tools/calendar/date-add-subtract-tool";
-import { WorkingDaysTool } from "@/components/tools/calendar/working-days-tool";
+import { WorkingDaysTool } from "@/components/tools/calendar/working-days-tool"
+import { WeekNumberTool } from "@/components/tools/calendar/week-number-tool"
+import { PrintableCalendarTool } from "@/components/tools/calendar/printable-calendar-tool"
+import { EventCountdownTool } from "@/components/tools/calendar/event-countdown-tool";
 
 import { MetaTagGeneratorTool } from "@/components/tools/seo/meta-tag-generator-tool";
 import { RobotsTxtGeneratorTool } from "@/components/tools/seo/robots-txt-generator-tool";
@@ -110,6 +115,7 @@ import { YoutubeTesterTool } from "@/components/tools/social-media/youtube-teste
 import { EmojiPickerTool } from "@/components/tools/social-media/emoji-picker-tool";
 
 import { ImageToBase64Tool } from "@/components/tools/image/image-to-base64-tool";
+import { ImageToPdfTool } from "@/components/tools/image/image-to-pdf-tool";
 import { ImageFormatConverterTool } from "@/components/tools/image/image-format-converter-tool";
 import { ImageCompressorTool } from "@/components/tools/image/image-compressor-tool";
 import { ImageResizerTool } from "@/components/tools/image/image-resizer-tool";
@@ -119,7 +125,11 @@ import { PlaceholderImageTool } from "@/components/tools/design/placeholder-imag
 import { SocialImageResizerTool } from "@/components/tools/social-media/social-image-resizer-tool";
 import { QrCodeGeneratorTool } from "@/components/tools/link-url/qr-code-generator-tool";
 import { UrlEncodeDecodeTool } from "@/components/tools/link-url/url-encode-decode-tool";
+import { UtmBuilderTool } from "@/components/tools/link-url/utm-builder-tool";
 import { OnlineNotepadTool } from "@/components/tools/general/online-notepad-tool";
+import { ScreenResolutionTool } from "@/components/tools/general/screen-resolution-tool";
+import { BrowserInfoTool } from "@/components/tools/general/browser-info-tool";
+import { ClipboardManagerTool } from "@/components/tools/general/clipboard-manager-tool";
 
 import { GstCalculatorTool } from "@/components/tools/finance/gst-calculator-tool";
 import { EmiCalculatorTool } from "@/components/tools/finance/emi-calculator-tool";
@@ -134,9 +144,18 @@ import { WaterIntakeTool } from "@/components/tools/health/water-intake-tool";
 import { OneRepMaxTool } from "@/components/tools/health/one-rep-max-tool";
 import { BodyFatTool } from "@/components/tools/health/body-fat-tool";
 import { RunningPaceTool } from "@/components/tools/health/running-pace-tool";
+import { StepsConverterTool } from "@/components/tools/health/steps-converter-tool";
 
 import { PomodoroTimerTool } from "@/components/tools/education/pomodoro-timer-tool";
 import { GpaCalculatorTool } from "@/components/tools/education/gpa-calculator-tool";
+import { YoutubeThumbnailTool } from "@/components/tools/video/youtube-thumbnail-tool";
+import { SqlFormatterTool } from "@/components/tools/developer/sql-formatter-tool";
+import { XmlJsonConverterTool } from "@/components/tools/developer/xml-json-converter-tool";
+import { IpLookupTool } from "@/components/tools/security/ip-lookup-tool";
+import { CodeMinifierTool } from "@/components/tools/developer/code-minifier-tool";
+import { PdfCompressorTool } from "@/components/tools/pdf/pdf-compressor-tool";
+import { CsvEditorTool } from "@/components/tools/data-file/csv-editor-tool";
+import { MultiplicationTableTool } from "@/components/tools/education/multiplication-table-tool";
 
 import { TextToSpeechTool } from "@/components/tools/language/text-to-speech-tool";
 import { MorseCodeTool } from "@/components/tools/language/morse-code-tool";
@@ -154,7 +173,9 @@ import { FuelCostTool } from "@/components/tools/travel/fuel-cost-tool";
 import { SpeedDistanceTimeControl } from "@/components/tools/travel/speed-distance-time-tool";
 
 import { RandomPickerTool } from "@/components/tools/fun-viral/random-picker-tool";
-import { TruthOrDareTool } from "@/components/tools/fun-viral/truth-or-dare-tool";
+import { TruthOrDareTool } from "@/components/tools/fun-viral/truth-or-dare-tool"
+import { UsernameGeneratorTool } from "@/components/tools/fun-viral/username-generator-tool";
+import { FakeTweetMakerTool } from "@/components/tools/fun-viral/fake-tweet-maker-tool";
 
 import { InstagramFormatterTool } from "@/components/tools/social-media/instagram-formatter-tool";
 
@@ -175,6 +196,7 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
   "data-file": {
     "csv-to-json": CsvToJsonTool,
     "json-to-csv": JsonToCsvTool,
+    "csv-viewer": CsvEditorTool,
     "yaml-json-converter": YamlJsonConverterTool,
     "file-checksum": FileChecksumTool,
   },
@@ -197,6 +219,11 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
     "uuid-generator": UuidGeneratorTool,
     "hash-generator": HashGeneratorTool,
     "jwt-decoder": JwtDecoderTool,
+    "cron-builder": CronBuilderTool,
+    "css-box-shadow": CssBoxShadowTool,
+    "sql-formatter": SqlFormatterTool,
+    "xml-json-converter": XmlJsonConverterTool,
+    "html-css-js-minifier": CodeMinifierTool,
   },
   "converters-calculators": {
     "unit-converter": UnitConverterTool,
@@ -216,12 +243,14 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
   "link-url": {
     "qr-code-generator": QrCodeGeneratorTool,
     "url-encode-decode": UrlEncodeDecodeTool,
+    "utm-builder": UtmBuilderTool,
   },
   "security-privacy": {
     "password-generator": PasswordGeneratorTool,
     "password-strength": PasswordStrengthTool,
     "text-encryptor": TextEncryptorTool,
     "fake-data-generator": FakeDataTool,
+    "ip-lookup": IpLookupTool,
   },
   "design-color": {
     "hex-rgb-hsl": ColorConverterTool,
@@ -263,6 +292,9 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
     "days-until-since": DaysUntilSinceTool,
     "date-add-subtract": DateAddSubtractTool,
     "working-days": WorkingDaysTool,
+    "week-number": WeekNumberTool,
+    "printable-calendar": PrintableCalendarTool,
+    "event-countdown": EventCountdownTool,
   },
   "seo-web": {
     "meta-tag-generator": MetaTagGeneratorTool,
@@ -284,9 +316,14 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
     "image-resizer": ImageResizerTool,
     "watermark-adder": WatermarkAdderTool,
     "color-picker-image": ColorPickerImageTool,
+    "image-to-pdf": ImageToPdfTool,
+    "pdf-compressor": PdfCompressorTool,
   },
   "general-productivity": {
     "online-notepad": OnlineNotepadTool,
+    "screen-resolution": ScreenResolutionTool,
+    "browser-info": BrowserInfoTool,
+    "clipboard-manager": ClipboardManagerTool,
   },
   "finance-business": {
     "gst-calculator": GstCalculatorTool,
@@ -303,6 +340,7 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
     "one-rep-max": OneRepMaxTool,
     "body-fat": BodyFatTool,
     "running-pace": RunningPaceTool,
+    "steps-converter": StepsConverterTool,
   },
   "education-learning": {
     "pomodoro-timer": PomodoroTimerTool,
@@ -310,6 +348,7 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
   "student-education": {
     "pomodoro-timer": PomodoroTimerTool, // Added alias because registry says student-education
     "gpa-calculator": GpaCalculatorTool,
+    "multiplication-table": MultiplicationTableTool,
   },
   "language-translation": {
     "text-to-speech": TextToSpeechTool,
@@ -339,6 +378,11 @@ const TOOL_COMPONENTS: Record<string, Record<string, React.ComponentType>> = {
   "fun-viral": {
     "random-picker": RandomPickerTool,
     "truth-or-dare": TruthOrDareTool,
+    "username-generator": UsernameGeneratorTool,
+    "fake-tweet-maker": FakeTweetMakerTool,
+  },
+  "video-audio-download": {
+    "youtube-thumbnail": YoutubeThumbnailTool,
   },
 };
 
@@ -362,10 +406,23 @@ export async function generateMetadata({
 
   if (!toolData || !cat) return {};
 
+  const fullDescription = `${toolData.description}. Free online ${toolData.name.toLowerCase()} tool — no signup required. Works in your browser on kraaft.`;
+
   return {
     title: `${toolData.name} — Free Online Tool`,
-    description: toolData.description,
+    description: fullDescription,
+    keywords: [toolData.name, ...toolData.tags, cat.name, "free online tool", "no signup"],
+    alternates: {
+      canonical: `/${category}/${toolSlug}`,
+    },
     openGraph: {
+      title: `${toolData.name} | kraaft`,
+      description: fullDescription,
+      url: `https://kraaft.manieshsanwal.in/${category}/${toolSlug}`,
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
       title: `${toolData.name} | kraaft`,
       description: toolData.description,
     },
@@ -383,8 +440,40 @@ export default async function ToolPage({ params }: ToolPageProps) {
     .filter((t) => t.slug !== toolData.slug)
     .slice(0, 4);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: toolData.name,
+    description: toolData.description,
+    url: `https://kraaft.manieshsanwal.in/${category}/${toolSlug}`,
+    applicationCategory: cat.name,
+    operatingSystem: "Any",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    isPartOf: {
+      "@type": "WebSite",
+      name: "kraaft",
+      url: "https://kraaft.manieshsanwal.in",
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://kraaft.manieshsanwal.in" },
+        { "@type": "ListItem", position: 2, name: cat.name, item: `https://kraaft.manieshsanwal.in/${category}` },
+        { "@type": "ListItem", position: 3, name: toolData.name, item: `https://kraaft.manieshsanwal.in/${category}/${toolSlug}` },
+      ],
+    },
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Breadcrumbs */}
       <Breadcrumb className="mb-6">
         <BreadcrumbList>

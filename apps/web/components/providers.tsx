@@ -45,10 +45,10 @@ function TabVisibility() {
     function handleVisibilityChange() {
       if (document.hidden) {
         // Only update originalTitle if it's not the "missing you" title
-        if (document.title !== "Kraaft - We missing you!") {
+        if (document.title !== "Kraaft | We are missing you!") {
           originalTitle = document.title;
         }
-        document.title = "Kraaft - We missing you!";
+        document.title = "Kraaft | We are missing you!";
 
         let link = document.querySelector('link[rel="icon"]') as HTMLLinkElement;
         if (link) {
@@ -59,7 +59,7 @@ function TabVisibility() {
           document.head.appendChild(link);
         }
         link.type = "image/svg+xml";
-        link.href = "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😢</text></svg>";
+        link.href = "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥺</text></svg>";
       } else {
         document.title = originalTitle;
         let link = document.querySelector('link[rel="icon"]') as HTMLLinkElement;

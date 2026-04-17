@@ -30,9 +30,26 @@ export async function generateMetadata({
   const cat = getCategoryBySlug(category);
   if (!cat) return {};
 
+  const toolsList = getToolsByCategory(cat.slug);
+  const liveCount = toolsList.filter((t) => t.status === "live").length;
+
   return {
-    title: `${cat.name} — Free Online Tools`,
-    description: cat.description,
+    title: `${cat.name} — ${liveCount} Free Online Tools`,
+    description: `${cat.description}. ${liveCount} free tools available — no signup required. Try them now on kraaft.`,
+    keywords: toolsList.slice(0, 10).map((t) => t.name),
+    alternates: {
+      canonical: `/${cat.slug}`,
+    },
+    openGraph: {
+      title: `${cat.name} | kraaft`,
+      description: cat.description,
+      url: `https://kraaft.manieshsanwal.in/${cat.slug}`,
+    },
+    twitter: {
+      card: "summary",
+      title: `${cat.name} | kraaft`,
+      description: cat.description,
+    },
   };
 }
 
@@ -44,8 +61,42 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const toolsList = getToolsByCategory(cat.slug);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: cat.name,
+    description: cat.description,
+    url: `https://kraaft.manieshsanwal.in/${cat.slug}`,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "kraaft",
+      url: "https://kraaft.manieshsanwal.in",
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://kraaft.manieshsanwal.in",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: cat.name,
+          item: `https://kraaft.manieshsanwal.in/${cat.slug}`,
+        },
+      ],
+    },
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Breadcrumbs */}
       <Breadcrumb className="mb-6">
         <BreadcrumbList>

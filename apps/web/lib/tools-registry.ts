@@ -43,23 +43,23 @@ export const tools: Tool[] = [
   // ─── Calendar & Date Tools ──────────────────────────────────
   { slug: "days-until-since", name: "Days Until / Since", description: "Calculate days until or since a date", category: "calendar-date", tags: ["days", "until", "since", "date"], status: "live" },
   { slug: "holiday-calendar", name: "Holiday Calendar", description: "Holiday calendar by country", category: "calendar-date", tags: ["holiday", "calendar", "country"], status: "coming-soon" },
-  { slug: "week-number", name: "Week Number Calculator", description: "Find the week number for any date", category: "calendar-date", tags: ["week", "number", "date"], status: "coming-soon" },
-  { slug: "printable-calendar", name: "Printable Calendar", description: "Generate a printable blank calendar", category: "calendar-date", tags: ["calendar", "print", "blank"], status: "coming-soon" },
-  { slug: "event-countdown", name: "Event Countdown", description: "Create a shareable event countdown page", category: "calendar-date", tags: ["event", "countdown", "share"], status: "coming-soon" },
+  { slug: "week-number", name: "Week Number Calculator", description: "Find the week number for any date", category: "calendar-date", tags: ["week", "number", "date"], status: "live" },
+  { slug: "printable-calendar", name: "Printable Calendar", description: "Generate a printable blank calendar", category: "calendar-date", tags: ["calendar", "print", "blank"], status: "live" },
+  { slug: "event-countdown", name: "Event Countdown", description: "Create a shareable event countdown page", category: "calendar-date", tags: ["event", "countdown", "share"], status: "live" },
   { slug: "working-days", name: "Working Days Calculator", description: "Calculate working days between dates", category: "calendar-date", tags: ["working", "days", "business"], status: "live" },
   { slug: "date-add-subtract", name: "Date Add / Subtract", description: "Add or subtract days, months, years from a date", category: "calendar-date", tags: ["date", "add", "subtract", "calculator"], status: "live" },
 
   // ─── Link & URL Tools ──────────────────────────────────────
   { slug: "url-shortener", name: "URL Shortener", description: "Shorten any URL for easy sharing", category: "link-url", tags: ["url", "short", "link"], isMostUsed: true, status: "coming-soon" },
   { slug: "qr-code-generator", name: "QR Code Generator", description: "Generate QR codes for any text or URL", category: "link-url", tags: ["qr", "code", "generator"], status: "live" },
-  { slug: "utm-builder", name: "UTM Link Builder", description: "Build UTM-tagged campaign links", category: "link-url", tags: ["utm", "campaign", "marketing", "link"], status: "coming-soon" },
+  { slug: "utm-builder", name: "UTM Link Builder", description: "Build UTM-tagged campaign links", category: "link-url", tags: ["utm", "campaign", "marketing", "link"], status: "live" },
   { slug: "url-encode-decode", name: "URL Encoder / Decoder", description: "Encode or decode URL components", category: "link-url", tags: ["url", "encode", "decode"], status: "live" },
   { slug: "broken-link-checker", name: "Broken Link Checker", description: "Check for broken links on a webpage", category: "link-url", tags: ["broken", "link", "checker"], status: "coming-soon" },
   { slug: "og-preview", name: "OG Preview Checker", description: "Preview Open Graph tags for any URL", category: "link-url", tags: ["og", "opengraph", "preview", "meta"], status: "coming-soon" },
   { slug: "link-protector", name: "Link Protector", description: "Add expiry or password protection to links", category: "link-url", tags: ["link", "password", "expiry", "protect"], status: "coming-soon" },
 
   // ─── Image Tools ──────────────────────────────────────────
-  { slug: "image-to-pdf", name: "Image to PDF", description: "Convert images to PDF documents", category: "image", tags: ["image", "pdf", "convert"], isMostUsed: true, status: "coming-soon" },
+  { slug: "image-to-pdf", name: "Image to PDF", description: "Convert images to PDF documents", category: "image", tags: ["image", "pdf", "convert"], isMostUsed: true, status: "live" },
   { slug: "image-compressor", name: "Image Compressor", description: "Compress images without losing quality", category: "image", tags: ["image", "compress", "optimize"], status: "live" },
   { slug: "image-resizer", name: "Image Resizer & Cropper", description: "Resize and crop images easily", category: "image", tags: ["image", "resize", "crop"], status: "live" },
   { slug: "background-remover", name: "Background Remover", description: "Remove background from any image", category: "image", tags: ["background", "remove", "image"], status: "coming-soon" },
@@ -75,7 +75,7 @@ export const tools: Tool[] = [
   // ─── PDF Tools ──────────────────────────────────────────
   { slug: "pdf-merger", name: "PDF Merger", description: "Merge multiple PDF files into one", category: "pdf", tags: ["pdf", "merge", "combine"], status: "live" },
   { slug: "pdf-splitter", name: "PDF Splitter", description: "Split a PDF into separate files", category: "pdf", tags: ["pdf", "split", "separate"], status: "live" },
-  { slug: "pdf-compressor", name: "PDF Compressor", description: "Compress PDF files to reduce size", category: "pdf", tags: ["pdf", "compress", "size"], status: "coming-soon" },
+  { slug: "pdf-compressor", name: "PDF Compressor", description: "Compress PDF files to reduce size", category: "pdf", tags: ["pdf", "compress", "size"], status: "live" },
   { slug: "pdf-to-word", name: "PDF to Word / Excel", description: "Convert PDF to Word or Excel documents", category: "pdf", tags: ["pdf", "word", "excel", "convert"], status: "coming-soon" },
   { slug: "word-to-pdf", name: "Word / Excel to PDF", description: "Convert Word or Excel files to PDF", category: "pdf", tags: ["word", "excel", "pdf", "convert"], status: "coming-soon" },
   { slug: "pdf-password", name: "PDF Password Protector", description: "Add password protection to PDF files", category: "pdf", tags: ["pdf", "password", "protect", "security"], status: "coming-soon" },
@@ -85,7 +85,7 @@ export const tools: Tool[] = [
 
   // ─── Video & Audio Download ──────────────────────────────────
   { slug: "youtube-downloader", name: "YouTube Downloader", description: "Download YouTube videos in multiple formats", category: "video-audio-download", tags: ["youtube", "video", "download"], status: "coming-soon" },
-  { slug: "youtube-thumbnail", name: "YouTube Thumbnail", description: "Download YouTube video thumbnails", category: "video-audio-download", tags: ["youtube", "thumbnail", "download"], status: "coming-soon" },
+  { slug: "youtube-thumbnail", name: "YouTube Thumbnail", description: "Download YouTube video thumbnails", category: "video-audio-download", tags: ["youtube", "thumbnail", "download"], status: "live" },
   { slug: "instagram-downloader", name: "Instagram Downloader", description: "Download Instagram videos and reels", category: "video-audio-download", tags: ["instagram", "video", "reel", "download"], status: "coming-soon" },
   { slug: "tiktok-downloader", name: "TikTok Downloader", description: "Download TikTok videos without watermark", category: "video-audio-download", tags: ["tiktok", "video", "download", "watermark"], status: "coming-soon" },
   { slug: "facebook-downloader", name: "Facebook Downloader", description: "Download Facebook videos", category: "video-audio-download", tags: ["facebook", "video", "download"], status: "coming-soon" },
@@ -131,19 +131,19 @@ export const tools: Tool[] = [
   // ─── Developer Tools ──────────────────────────────────────────
   { slug: "json-formatter", name: "JSON Formatter", description: "Format and validate JSON data", category: "developer", tags: ["json", "format", "validate", "pretty"], isMostUsed: true, status: "live" },
   { slug: "base64-encoder", name: "Base64 Encoder / Decoder", description: "Encode or decode Base64 strings", category: "developer", tags: ["base64", "encode", "decode"], status: "live" },
-  { slug: "html-css-js-minifier", name: "HTML/CSS/JS Minifier", description: "Minify HTML, CSS and JavaScript code", category: "developer", tags: ["minify", "html", "css", "javascript", "compress"], status: "coming-soon" },
+  { slug: "html-css-js-minifier", name: "HTML/CSS/JS Minifier", description: "Minify HTML, CSS and JavaScript code", category: "developer", tags: ["minify", "html", "css", "javascript", "compress"], status: "live" },
   { slug: "html-entity-encoder", name: "HTML Entity Encoder", description: "Encode and decode HTML entities", category: "developer", tags: ["html", "entity", "encode", "decode"], status: "live" },
   { slug: "regex-tester", name: "Regex Tester", description: "Test regular expressions with live matching", category: "developer", tags: ["regex", "regular", "expression", "test", "match"], status: "live" },
   { slug: "markdown-to-html", name: "Markdown to HTML", description: "Convert Markdown to HTML and preview", category: "developer", tags: ["markdown", "html", "convert", "preview"], status: "live" },
   { slug: "uuid-generator", name: "UUID Generator", description: "Generate unique UUIDs / GUIDs", category: "developer", tags: ["uuid", "guid", "generate", "unique"], status: "live" },
   { slug: "hash-generator", name: "Hash Generator", description: "Generate MD5, SHA-256 and other hashes", category: "developer", tags: ["hash", "md5", "sha256", "sha", "generate"], status: "live" },
   { slug: "jwt-decoder", name: "JWT Decoder", description: "Decode and inspect JWT tokens", category: "developer", tags: ["jwt", "token", "decode", "inspect"], status: "live" },
-  { slug: "cron-builder", name: "CRON Expression Builder", description: "Build and understand CRON expressions", category: "developer", tags: ["cron", "expression", "schedule", "builder"], status: "coming-soon" },
+  { slug: "cron-builder", name: "CRON Expression Builder", description: "Build and understand CRON expressions", category: "developer", tags: ["cron", "expression", "schedule", "builder"], status: "live" },
   { slug: "api-formatter", name: "API Response Formatter", description: "Format and beautify API responses", category: "developer", tags: ["api", "response", "format", "json"], status: "coming-soon" },
-  { slug: "xml-json-converter", name: "XML ↔ JSON Converter", description: "Convert between XML and JSON formats", category: "developer", tags: ["xml", "json", "convert"], status: "coming-soon" },
-  { slug: "sql-formatter", name: "SQL Formatter", description: "Format and beautify SQL queries", category: "developer", tags: ["sql", "format", "beautify", "query"], status: "coming-soon" },
+  { slug: "xml-json-converter", name: "XML ↔ JSON Converter", description: "Convert between XML and JSON formats", category: "developer", tags: ["xml", "json", "convert"], status: "live" },
+  { slug: "sql-formatter", name: "SQL Formatter", description: "Format and beautify SQL queries", category: "developer", tags: ["sql", "format", "beautify", "query"], status: "live" },
   { slug: "css-gradient-generator", name: "CSS Gradient Generator", description: "Create beautiful CSS gradients visually", category: "developer", tags: ["css", "gradient", "generator", "color"], status: "coming-soon" },
-  { slug: "css-box-shadow", name: "CSS Box Shadow Generator", description: "Generate CSS box shadow code visually", category: "developer", tags: ["css", "shadow", "box", "generator"], status: "coming-soon" },
+  { slug: "css-box-shadow", name: "CSS Box Shadow Generator", description: "Generate CSS box shadow code visually", category: "developer", tags: ["css", "shadow", "box", "generator"], status: "live" },
 
   // ─── Data & File Tools ──────────────────────────────────────
   { slug: "csv-to-json", name: "CSV to JSON", description: "Convert CSV and Excel files to JSON", category: "data-file", tags: ["csv", "excel", "json", "convert"], status: "live" },
@@ -151,7 +151,7 @@ export const tools: Tool[] = [
   { slug: "file-checksum", name: "File Checksum Verifier", description: "Verify file integrity with checksums", category: "data-file", tags: ["file", "checksum", "hash", "verify", "md5", "sha"], status: "live" },
   { slug: "zip-compressor", name: "ZIP Compressor", description: "Compress files into ZIP archives", category: "data-file", tags: ["zip", "compress", "archive", "file"], status: "coming-soon" },
   { slug: "excel-to-pdf", name: "Excel to PDF", description: "Convert Excel files to PDF documents", category: "data-file", tags: ["excel", "pdf", "convert"], status: "coming-soon" },
-  { slug: "csv-viewer", name: "CSV Viewer & Editor", description: "View and edit CSV files in the browser", category: "data-file", tags: ["csv", "viewer", "editor", "table"], status: "coming-soon" },
+  { slug: "csv-viewer", name: "CSV Viewer & Editor", description: "View and edit CSV files in the browser", category: "data-file", tags: ["csv", "viewer", "editor", "table"], status: "live" },
   { slug: "yaml-json-converter", name: "YAML ↔ JSON Converter", description: "Convert between YAML and JSON formats", category: "data-file", tags: ["yaml", "json", "convert"], status: "live" },
 
   // ─── Design & Color Tools ──────────────────────────────────
@@ -171,7 +171,7 @@ export const tools: Tool[] = [
   { slug: "password-generator", name: "Password Generator", description: "Generate strong, secure passwords", category: "security-privacy", tags: ["password", "generate", "secure", "strong"], isMostUsed: true, status: "live" },
   { slug: "password-strength", name: "Password Strength Checker", description: "Check how strong your password is", category: "security-privacy", tags: ["password", "strength", "check", "security"], status: "live" },
   { slug: "text-encryptor", name: "Text Encryptor", description: "Encrypt and decrypt text with AES", category: "security-privacy", tags: ["encrypt", "decrypt", "text", "aes", "security"], status: "live" },
-  { slug: "ip-lookup", name: "IP Address Lookup", description: "Look up information about any IP address", category: "security-privacy", tags: ["ip", "address", "lookup", "location"], status: "coming-soon" },
+  { slug: "ip-lookup", name: "IP Address Lookup", description: "Look up information about any IP address", category: "security-privacy", tags: ["ip", "address", "lookup", "location"], status: "live" },
   { slug: "fake-data-generator", name: "Fake Data Generator", description: "Generate fake identity and data for testing", category: "security-privacy", tags: ["fake", "data", "identity", "generator", "test"], status: "live" },
   { slug: "email-leak-checker", name: "Email Leak Checker", description: "Check if your email has been in a data breach", category: "security-privacy", tags: ["email", "leak", "breach", "check"], status: "coming-soon" },
   { slug: "temp-email", name: "Temporary Email", description: "Get a disposable temporary email address", category: "security-privacy", tags: ["temp", "email", "disposable", "temporary"], status: "coming-soon" },
@@ -276,7 +276,7 @@ export const tools: Tool[] = [
   { slug: "deadline-tracker", name: "Assignment Deadline Tracker", description: "Track assignment deadlines and due dates", category: "student-education", tags: ["assignment", "deadline", "tracker", "due date"], status: "coming-soon" },
   { slug: "essay-word-count", name: "Essay Word Count", description: "Count words in essays with formatting info", category: "student-education", tags: ["essay", "word", "count", "writing"], status: "coming-soon" },
   { slug: "periodic-table", name: "Periodic Table Reference", description: "Interactive periodic table of elements", category: "student-education", tags: ["periodic", "table", "elements", "chemistry"], status: "coming-soon" },
-  { slug: "multiplication-table", name: "Multiplication Table", description: "Generate multiplication tables", category: "student-education", tags: ["multiplication", "table", "math"], status: "coming-soon" },
+  { slug: "multiplication-table", name: "Multiplication Table", description: "Generate multiplication tables", category: "student-education", tags: ["multiplication", "table", "math"], status: "live" },
 
   // ─── Maps & Location ──────────────────────────────────────
   { slug: "distance-calculator", name: "Distance Calculator", description: "Calculate distance between two places", category: "maps-location", tags: ["distance", "places", "calculator", "map"], status: "coming-soon" },
@@ -292,7 +292,7 @@ export const tools: Tool[] = [
   { slug: "body-fat", name: "Body Fat Estimator", description: "Estimate your body fat percentage", category: "health-fitness", tags: ["body", "fat", "percentage", "estimate"], status: "live" },
   { slug: "one-rep-max", name: "One Rep Max Calculator", description: "Calculate your one rep max for weightlifting", category: "health-fitness", tags: ["one rep max", "1rm", "weightlifting", "strength"], status: "live" },
   { slug: "running-pace", name: "Running Pace Calculator", description: "Calculate running pace and speed", category: "health-fitness", tags: ["running", "pace", "speed", "calculator"], status: "live" },
-  { slug: "steps-converter", name: "Steps to Calories", description: "Convert steps to calories and distance", category: "health-fitness", tags: ["steps", "calories", "distance", "converter"], status: "coming-soon" },
+  { slug: "steps-converter", name: "Steps to Calories", description: "Convert steps to calories and distance", category: "health-fitness", tags: ["steps", "calories", "distance", "converter"], status: "live" },
   { slug: "water-intake", name: "Water Intake Calculator", description: "Calculate daily water intake recommendations", category: "health-fitness", tags: ["water", "intake", "hydration", "calculator"], status: "live" },
   { slug: "sleep-schedule", name: "Sleep Schedule Optimizer", description: "Optimize your sleep schedule", category: "health-fitness", tags: ["sleep", "schedule", "optimizer", "health"], status: "coming-soon" },
   { slug: "macro-calculator", name: "Macro Calculator", description: "Calculate daily macronutrient needs", category: "health-fitness", tags: ["macro", "nutrition", "protein", "carbs", "fat"], status: "coming-soon" },
@@ -363,10 +363,10 @@ export const tools: Tool[] = [
   { slug: "app-screenshot-maker", name: "App Screenshot Maker", description: "Create app store screenshots", category: "mobile-app", tags: ["app", "screenshot", "store", "maker"], status: "coming-soon" },
 
   // ─── Fun & Viral Tools ──────────────────────────────────────
-  { slug: "username-generator", name: "Username Generator", description: "Generate aesthetic usernames and gamertags", category: "fun-viral", tags: ["username", "gamertag", "generator", "aesthetic"], isTrending: true, status: "coming-soon" },
+  { slug: "username-generator", name: "Username Generator", description: "Generate aesthetic usernames and gamertags", category: "fun-viral", tags: ["username", "gamertag", "generator", "aesthetic"], isTrending: true, status: "live" },
   { slug: "roast-compliment", name: "Roast & Compliment Generator", description: "Get AI-powered roasts and compliments", category: "fun-viral", tags: ["roast", "compliment", "ai", "fun"], isTrending: true, status: "coming-soon" },
   { slug: "personality-quiz", name: "Personality Quiz Maker", description: "Create personality quizzes", category: "fun-viral", tags: ["personality", "quiz", "maker", "fun"], status: "coming-soon" },
-  { slug: "fake-tweet-maker", name: "Fake Tweet Maker", description: "Create fake tweet and chat screenshots", category: "fun-viral", tags: ["fake", "tweet", "chat", "screenshot"], status: "coming-soon" },
+  { slug: "fake-tweet-maker", name: "Fake Tweet Maker", description: "Create fake tweet and chat screenshots", category: "fun-viral", tags: ["fake", "tweet", "chat", "screenshot"], status: "live" },
   { slug: "tier-list-maker", name: "Tier List Maker", description: "Create custom tier lists", category: "fun-viral", tags: ["tier", "list", "maker", "ranking"], status: "coming-soon" },
   { slug: "random-picker", name: "Random Picker / Wheel", description: "Spin a wheel or pick randomly", category: "fun-viral", tags: ["random", "picker", "wheel", "spinner"], status: "live" },
   { slug: "would-you-rather", name: "Would You Rather", description: "Generate 'would you rather' questions", category: "fun-viral", tags: ["would", "you", "rather", "game", "fun"], status: "coming-soon" },
@@ -384,9 +384,9 @@ export const tools: Tool[] = [
 
   // ─── General Productivity ──────────────────────────────────
   { slug: "online-notepad", name: "Online Notepad", description: "Simple online notepad and scratchpad", category: "general-productivity", tags: ["notepad", "notes", "scratchpad", "text"], status: "live" },
-  { slug: "screen-resolution", name: "Screen Resolution Checker", description: "Check your screen resolution", category: "general-productivity", tags: ["screen", "resolution", "display", "checker"], status: "coming-soon" },
-  { slug: "browser-info", name: "Browser Info Detector", description: "View your browser information", category: "general-productivity", tags: ["browser", "info", "detector", "user-agent"], status: "coming-soon" },
-  { slug: "clipboard-manager", name: "Clipboard Manager", description: "Temporary clipboard manager", category: "general-productivity", tags: ["clipboard", "manager", "copy", "paste"], status: "coming-soon" },
+  { slug: "screen-resolution", name: "Screen Resolution Checker", description: "Check your screen resolution", category: "general-productivity", tags: ["screen", "resolution", "display", "checker"], status: "live" },
+  { slug: "browser-info", name: "Browser Info Detector", description: "View your browser information", category: "general-productivity", tags: ["browser", "info", "detector", "user-agent"], status: "live" },
+  { slug: "clipboard-manager", name: "Clipboard Manager", description: "Temporary clipboard manager", category: "general-productivity", tags: ["clipboard", "manager", "copy", "paste"], status: "live" },
   { slug: "focus-mode", name: "Focus Mode", description: "Focus mode with ambient sounds", category: "general-productivity", tags: ["focus", "ambient", "sound", "productivity"], status: "coming-soon" },
   { slug: "decision-maker", name: "Random Decision Maker", description: "Help make random decisions", category: "general-productivity", tags: ["decision", "random", "maker", "choice"], status: "coming-soon" },
   { slug: "meeting-agenda", name: "Meeting Agenda Builder", description: "Build meeting agendas quickly", category: "general-productivity", tags: ["meeting", "agenda", "builder", "productivity"], status: "coming-soon" },
